@@ -15,6 +15,11 @@
         android:theme="@style/Theme.GroupProject"
         android:networkSecurityConfig="@xml/network_security_config">
 
+        <activity android:name=".BorrowActivity" />
+        <activity android:name=".TransferFormActivity" />
+        <activity android:name=".ActivityPending" />
+        <activity android:name=".ApproveActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -28,10 +33,7 @@
         </activity>
         <activity android:name=".Register">
         </activity>
-        <activity android:name=".BorrowActivity" />
-        <activity android:name=".TransferFormActivity" />
-        <activity android:name=".ActivityPending" />
-        <activity android:name=".ApproveActivity" />
+
 
     </application>
 

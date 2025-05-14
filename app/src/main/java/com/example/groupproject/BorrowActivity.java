@@ -40,7 +40,6 @@ public class BorrowActivity extends AppCompatActivity {
         transferDate = findViewById(R.id.editTextDateOfTransfer);
         locationFrom = findViewById(R.id.editTextLocationFrom);
         locationTo = findViewById(R.id.editTextLocationTo);
-        remarks = findViewById(R.id.editTextRemarks);
 
         submitButton = findViewById(R.id.buttonSubmit);
         addItemButton = findViewById(R.id.add_item_button);
@@ -66,7 +65,6 @@ public class BorrowActivity extends AppCompatActivity {
                 intent.putExtra("transferDate", transferDate.getText().toString());
                 intent.putExtra("locationFrom", locationFrom.getText().toString());
                 intent.putExtra("locationTo", locationTo.getText().toString());
-                intent.putExtra("remarks", remarks.getText().toString());
 
                 startActivity(intent);
             } else {
@@ -93,7 +91,6 @@ public class BorrowActivity extends AppCompatActivity {
                 && !description.getText().toString().isEmpty()
                 && !transferDate.getText().toString().isEmpty()
                 && !locationFrom.getText().toString().isEmpty()
-                && !locationTo.getText().toString().isEmpty()
-                && !remarks.getText().toString().isEmpty();
+                && !locationTo.getText().toString().isEmpty();
     }
 }
