@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/gradient_background">
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="16dp" android:src="@drawable/logo" android:contentDescription="E-PERMIT Logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="Sign-Up"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Name"
+        android:padding="12dp"
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#A9A9A9" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="#000000"
+        android:textColorHint="#A9A9A9" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#A9A9A9" />
+
+    <EditText
+        android:id="@+id/etReenterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:padding="12dp"
+        android:layout_marginBottom="24dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Re-enter Password"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#A9A9A9" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:background="#800080"
+        android:onClick="save"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="Register"
+        android:textColor="#FFFFFF" />
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already Registered? Login here."
+        android:onClick="login"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textColor="#000000"/>
+</LinearLayout>

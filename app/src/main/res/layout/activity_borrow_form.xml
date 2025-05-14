@@ -1,0 +1,303 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/bg_blue_to_white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/bg_blue_to_white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Permit To Borrow"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="50dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp" />
+
+            <EditText
+                android:id="@+id/editTextDate1"
+                android:layout_width="0dp"
+                android:padding="10dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:inputType="date" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Department/Office:"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp" />
+
+            <EditText
+                android:id="@+id/editTextDepartment"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name of borrower:"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp" />
+
+            <EditText
+                android:id="@+id/editTextBorrowerName"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sir/Madam, I would like to borrow the following items for:"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name of Project:"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp" />
+            <EditText
+                android:id="@+id/editTextProjectName"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:background="@color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp" />
+
+            <EditText
+                android:id="@+id/editTextDate2"
+                android:layout_width="71dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:inputType="date" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textSize="16sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp" />
+            <EditText
+                android:id="@+id/editTextTime"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:background="@color/white"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Venue:"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp" />
+            <EditText
+                android:id="@+id/editTextVenue"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+
+                android:layout_weight="1"
+                android:inputType="text"
+                android:background="@color/white"/>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Qty."
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Description"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Date of Transfer"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Location From"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Location To"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Remarks"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/editTextQty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:textSize="12sp" />
+                <EditText
+                    android:id="@+id/editTextDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+                <EditText
+                    android:id="@+id/editTextTransferDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="date"
+                    android:textSize="12sp" />
+                <EditText
+                    android:id="@+id/editTextLocationFrom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+                <EditText
+                    android:id="@+id/editTextLocationTo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+                <EditText
+                    android:id="@+id/editTextRemarks"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/add_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ Add Item"
+            android:layout_gravity="end"
+            android:background="#673AB7"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_gravity="center"
+            android:background="#64B5F6"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

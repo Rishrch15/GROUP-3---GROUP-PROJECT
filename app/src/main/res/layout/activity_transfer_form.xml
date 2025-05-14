@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/textViewUniversity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E-PERMIT"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/textViewSPMO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supply and Property Management Office (SPMO)"
+                android:textSize="14sp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/textViewClearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clearance to MOVE/TRANSFER Furniture/Equipment"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewDateLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Date:" />
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="date" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/textViewDepartmentLabel"
+                android:layout_width="79dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Department/Office:" />
+
+            <EditText
+                android:id="@+id/editTextDepartment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/textViewRequestingOfficerLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Name of Requesting:" />
+
+            <EditText
+                android:id="@+id/editTextRequestingOfficer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewSirMadam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sir/Madam:"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/textViewRequestIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I would like to request for the following items:"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <CheckBox
+                android:id="@+id/checkBoxTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transfer / Relocation" />
+
+            <CheckBox
+                android:id="@+id/checkBoxPullOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pull-out / Return" />
+
+            <CheckBox
+                android:id="@+id/checkBoxOfficeTables"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Office tables/Chairs" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFilingCabinets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filing Cabinets/Shelves" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkBoxOthers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Others" />
+
+                <EditText
+                    android:id="@+id/editTextOthers"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Specify"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/textViewQtyLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Qty."
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewDescriptionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Description"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewDateOfTransferLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Date of Transfer"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewLocationFromLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Location From"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewLocationToLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Location To"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewRemarksLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Remarks"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/itemsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <EditText
+                    android:id="@+id/editTextQty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/editTextDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:inputType="textMultiLine" />
+
+                <EditText
+                    android:id="@+id/editTextDateOfTransfer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:inputType="date" />
+
+                <EditText
+                    android:id="@+id/editTextLocationFrom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/editTextLocationTo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/editTextRemarks"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:inputType="textMultiLine" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonAddItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:text="+ Add Item" />
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Request"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>
