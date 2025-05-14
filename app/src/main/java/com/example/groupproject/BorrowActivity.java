@@ -11,86 +11,72 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BorrowActivity extends AppCompatActivity {
 
-    EditText date1, department, borrowerName, projectName, date2, time, venue;
-    EditText qty, description, transferDate, locationFrom, locationTo, remarks;
-    Button submitButton;
-    Button addItemButton;
-
+    EditText editDate1, editDept, editName, editProject, editDate2, editTime, editVenue;
     LinearLayout itemsContainer;
-    LayoutInflater inflater;
+    Button addItemBtn, submitBtn;
+
+    public static ArrayList<BorrowRequest> requests = new ArrayList<>(); // Shared list
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrow_form);
 
-        // Initialize input fields
-        date1 = findViewById(R.id.editTextDate1);
-        department = findViewById(R.id.editTextDepartment);
-        borrowerName = findViewById(R.id.editTextBorrowerName);
-        projectName = findViewById(R.id.editTextProjectName);
-        date2 = findViewById(R.id.editTextDate2);
-        time = findViewById(R.id.editTextTime);
-        venue = findViewById(R.id.editTextVenue);
-
-        qty = findViewById(R.id.editTextQty);
-        description = findViewById(R.id.editTextDescription);
-        transferDate = findViewById(R.id.editTextDateOfTransfer);
-        locationFrom = findViewById(R.id.editTextLocationFrom);
-        locationTo = findViewById(R.id.editTextLocationTo);
-
-        submitButton = findViewById(R.id.buttonSubmit);
-        addItemButton = findViewById(R.id.add_item_button);
-
+        editDate1 = findViewById(R.id.editTextDate1);
+        editDept = findViewById(R.id.editTextDepartment);
+        editName = findViewById(R.id.editTextBorrowerName);
+        editProject = findViewById(R.id.editTextProjectName);
+        editDate2 = findViewById(R.id.editTextDate2);
+        editTime = findViewById(R.id.editTextTime);
+        editVenue = findViewById(R.id.editTextVenue);
         itemsContainer = findViewById(R.id.itemsContainer);
-        inflater = LayoutInflater.from(this);
+        addItemBtn = findViewById(R.id.add_item_button);
+        submitBtn = findViewById(R.id.buttonSubmit);
 
-        // Submit button logic
-        submitButton.setOnClickListener(v -> {
-            if (validateFields()) {
-                Intent intent = new Intent(BorrowActivity.this, ActivityPending.class);
+        addItemBtn.setOnClickListener(v -> addItemRow());
 
-                intent.putExtra("date1", date1.getText().toString());
-                intent.putExtra("department", department.getText().toString());
-                intent.putExtra("borrowerName", borrowerName.getText().toString());
-                intent.putExtra("projectName", projectName.getText().toString());
-                intent.putExtra("date2", date2.getText().toString());
-                intent.putExtra("time", time.getText().toString());
-                intent.putExtra("venue", venue.getText().toString());
-
-                intent.putExtra("qty", qty.getText().toString());
-                intent.putExtra("description", description.getText().toString());
-                intent.putExtra("transferDate", transferDate.getText().toString());
-                intent.putExtra("locationFrom", locationFrom.getText().toString());
-                intent.putExtra("locationTo", locationTo.getText().toString());
-
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
+        submitBtn.setOnClickListener(v -> {
+            List<BorrowRequest.Item> items = new ArrayList<>();
+            for (int i = 0; i < itemsContainer.getChildCount(); i++) {
+                LinearLayout row = (LinearLayout) itemsContainer.getChildAt(i);
+                EditText qty = (EditText) row.getChildAt(0);
+                EditText desc = (EditText) row.getChildAt(1);
+                EditText date = (EditText) row.getChildAt(2);
+                EditText from = (EditText) row.getChildAt(3);
+                EditText to = (EditText) row.getChildAt(4);
+                items.add(new BorrowRequest.Item(
+                        qty.getText().toString(),
+                        desc.getText().toString(),
+                        date.getText().toString(),
+                        from.getText().toString(),
+                        to.getText().toString()));
             }
-        });
 
-        // Add Item button logic
-        addItemButton.setOnClickListener(v -> {
-            View itemRow = inflater.inflate(R.layout.item_row, itemsContainer, false);
-            itemsContainer.addView(itemRow);
+            BorrowRequest request = new BorrowRequest(
+                    editDate1.getText().toString(),
+                    editDept.getText().toString(),
+                    editName.getText().toString(),
+                    editProject.getText().toString(),
+                    editDate2.getText().toString(),
+                    editTime.getText().toString(),
+                    editVenue.getText().toString(),
+                    items);
+
+            requests.add(request);
+
+            Toast.makeText(this, "Request Submitted!", Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
 
-    private boolean validateFields() {
-        return !date1.getText().toString().isEmpty()
-                && !department.getText().toString().isEmpty()
-                && !borrowerName.getText().toString().isEmpty()
-                && !projectName.getText().toString().isEmpty()
-                && !date2.getText().toString().isEmpty()
-                && !time.getText().toString().isEmpty()
-                && !venue.getText().toString().isEmpty()
-                && !qty.getText().toString().isEmpty()
-                && !description.getText().toString().isEmpty()
-                && !transferDate.getText().toString().isEmpty()
-                && !locationFrom.getText().toString().isEmpty()
-                && !locationTo.getText().toString().isEmpty();
+    private void addItemRow() {
+        LinearLayout row = (LinearLayout) LayoutInflater.from(this)
+                .inflate(R.layout.item_row, itemsContainer, false);
+        itemsContainer.addView(row);
     }
 }

@@ -25,7 +25,7 @@ public class Success extends AppCompatActivity {
         });
 
         btnPending.setOnClickListener(v -> {
-            Intent intent = new Intent(Success.this, ActivityPending.class);
+            Intent intent = new Intent(Success.this, ListActivity.class);
             startActivity(intent);
         });
 
