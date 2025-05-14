@@ -35,6 +35,13 @@
                 android:text="Date:"
                 android:textSize="16sp"
                 android:layout_marginRight="8dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
 
             <EditText
                 android:id="@+id/editTextDate1"
@@ -42,7 +49,7 @@
                 android:padding="10dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/rounded_edittext"
                 android:inputType="date" />
         </LinearLayout>
 
@@ -58,13 +65,21 @@
                 android:textSize="16sp"
                 android:layout_marginRight="8dp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
             <EditText
                 android:id="@+id/editTextDepartment"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:padding="10dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/rounded_edittext"
                 android:inputType="text" />
         </LinearLayout>
 
@@ -80,13 +95,22 @@
                 android:textSize="16sp"
                 android:layout_marginRight="8dp" />
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
             <EditText
                 android:id="@+id/editTextBorrowerName"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:padding="10dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/rounded_edittext"
                 android:inputType="text" />
         </LinearLayout>
 
@@ -108,6 +132,14 @@
                 android:text="Name of Project:"
                 android:textSize="16sp"
                 android:layout_marginRight="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
             <EditText
                 android:id="@+id/editTextProjectName"
                 android:layout_width="0dp"
@@ -115,7 +147,7 @@
                 android:padding="10dp"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:background="@color/white"/>
+                android:background="@drawable/rounded_edittext"/>
         </LinearLayout>
 
         <LinearLayout
@@ -130,16 +162,26 @@
                 android:textSize="16sp"
                 android:layout_marginRight="8dp" />
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
             <EditText
                 android:id="@+id/editTextDate2"
                 android:layout_width="71dp"
                 android:layout_height="40dp"
                 android:padding="10dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/rounded_edittext"
                 android:inputType="date" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -152,6 +194,15 @@
                 android:textSize="16sp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
             <EditText
                 android:id="@+id/editTextTime"
                 android:layout_width="0dp"
@@ -159,7 +210,8 @@
                 android:padding="10dp"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:background="@color/white"/>
+                android:background="@drawable/rounded_edittext"
+                />
 
         </LinearLayout>
 
@@ -175,6 +227,15 @@
                 android:text="Venue:"
                 android:textSize="16sp"
                 android:layout_marginRight="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
             <EditText
                 android:id="@+id/editTextVenue"
                 android:layout_width="0dp"
@@ -183,102 +244,110 @@
 
                 android:layout_weight="1"
                 android:inputType="text"
-                android:background="@color/white"/>
+                android:background="@drawable/rounded_edittext"
+                />
         </LinearLayout>
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
-            <TableRow>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Qty."
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Description"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Date of Transfer"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Location From"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Location To"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Remarks"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </TableRow>
-            <TableRow>
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/textViewQtyLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Qty."
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewDescriptionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Description"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/editTextTransferDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Date of Transfer"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewLocationFromLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Location From"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewLocationToLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Location To"
+                android:textStyle="bold" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/itemsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
                 <EditText
                     android:id="@+id/editTextQty"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="number"
-                    android:textSize="12sp" />
+                    android:inputType="number" />
+
                 <EditText
                     android:id="@+id/editTextDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="text"
-                    android:textSize="12sp" />
+                    android:layout_weight="3"
+                    android:inputType="textMultiLine" />
+
                 <EditText
-                    android:id="@+id/editTextTransferDate"
+                    android:id="@+id/editTextDateOfTransfer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="date"
-                    android:textSize="12sp" />
+                    android:layout_weight="2"
+                    android:inputType="date" />
+
                 <EditText
                     android:id="@+id/editTextLocationFrom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="text"
-                    android:textSize="12sp" />
+                    android:layout_weight="2"
+                    android:inputType="text" />
+
                 <EditText
                     android:id="@+id/editTextLocationTo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="text"
-                    android:textSize="12sp" />
-                <EditText
-                    android:id="@+id/editTextRemarks"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="text"
-                    android:textSize="12sp" />
-            </TableRow>
-        </TableLayout>
+                    android:layout_weight="2"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/add_item_button"
@@ -286,7 +355,7 @@
             android:layout_height="wrap_content"
             android:text="+ Add Item"
             android:layout_gravity="end"
-            android:background="#673AB7"
+            android:background="@drawable/button_rounded"
             android:textColor="#FFFFFF" />
 
         <Button
@@ -295,7 +364,7 @@
             android:layout_height="wrap_content"
             android:text="Submit"
             android:layout_gravity="center"
-            android:background="#64B5F6"
+            android:background="@drawable/button_rounded"
             android:layout_marginTop="16dp"/>
 
     </LinearLayout>
