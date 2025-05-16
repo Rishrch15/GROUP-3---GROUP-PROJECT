@@ -1,17 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".MainActivity">
+    android:background="#FFFFFF"
+    android:padding="16dp">
 
-    <ListView
-        android:id="@+id/listView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Permit To Borrow Request"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="APPROVED"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Date:" />
+        <TextView android:id="@+id/textViewDate" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#999999" android:layout_marginBottom="12dp" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Department:" />
+        <TextView android:id="@+id/textViewDepartment" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#999999" android:layout_marginBottom="12dp" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Name of Requesting:" />
+        <TextView android:id="@+id/textViewRequestingName" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#999999" android:layout_marginBottom="12dp" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sir/Ma'am," android:layout_marginTop="8dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="I would like to request for the following items:" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Name of Project:" />
+        <TextView android:id="@+id/textViewProjectName" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#999999" android:layout_marginBottom="12dp" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Date and Time:" />
+        <TextView android:id="@+id/textViewDateTime" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#999999" android:layout_marginBottom="12dp" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Venue:" />
+        <TextView android:id="@+id/textViewVenue" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#999999" android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Item Details"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="4dp">
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Qty" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Description" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Date of Transfer" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="From" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="To" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Date of Return" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Remarks" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp">
+
+                <TextView android:id="@+id/textViewQty" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/textViewDescription" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" />
+                <TextView android:id="@+id/textViewTransferDate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" />
+                <TextView android:id="@+id/textViewFrom" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/textViewTo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/textViewReturnDate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" />
+                <TextView android:id="@+id/textViewRemarks" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Approved By:" android:layout_marginTop="16dp" />
+        <TextView android:id="@+id/textViewApprovedBy" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#999999" android:layout_marginBottom="12dp" />
+
+    </LinearLayout>
+</ScrollView>
