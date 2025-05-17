@@ -2,15 +2,16 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
-    android:background="@drawable/bg_blue_to_white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_blue_to_white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -24,13 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-
             <LinearLayout
                 android:id="@+id/dashboardLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_blue_to_white"                android:gravity="center"
+                android:background="@drawable/bg_blue_to_white"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -38,16 +38,17 @@
                     android:id="@+id/logoImageView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_marginBottom="16dp" android:src="@drawable/logo"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/logo"
                     android:contentDescription="E-PERMIT Logo" />
-
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="32dp"
                     android:text="Welcome to Dashboard"
-                    android:textSize="22sp"
+                    android:textSize="24sp"
+                    android:textColor="#333333"
                     android:textStyle="bold" />
 
                 <GridLayout
@@ -59,54 +60,126 @@
                     android:rowCount="2"
                     android:useDefaultMargins="true">
 
-                    <ImageButton
-                        android:id="@+id/btnBarrow"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:background="@null"
-                        android:contentDescription="Go to Form"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/borrow" />
+                    <!-- Reusable Card Style Button -->
 
-                    <ImageButton
-                        android:id="@+id/btnPending"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:background="@null"
-                        android:contentDescription="Go to Profile"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/pending" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/btnApprove"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:background="@null"
-                        android:contentDescription="Go to Settings"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/approve" />
+                        <ImageButton
+                            android:id="@+id/btnBarrow"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/btn_dashboard_background"
+                            android:contentDescription="Borrow Form"
+                            android:padding="24dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/borrow" />
 
-                    <ImageButton
-                        android:id="@+id/btnTransfer"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:background="@null"
-                        android:contentDescription="Go to Help"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/transfer" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Borrow"
+                            android:textColor="#222222"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/btnPending"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/btn_dashboard_background"
+                            android:padding="24dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/pending"
+                            android:contentDescription="Pending" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pending"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#222222"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/btnApprove"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/btn_dashboard_background"
+                            android:padding="24dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/approve"
+                            android:contentDescription="Approve" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Approve"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#222222"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/btnTransfer"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/btn_dashboard_background"
+                            android:padding="24dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/transfer"
+                            android:contentDescription="Transfer" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Transfer"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#222222"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
                 </GridLayout>
             </LinearLayout>
-
         </FrameLayout>
-
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        />
+        android:layout_gravity="start" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
