@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp"
+    android:background="#4169E1">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:layout_marginTop="32dp"
+        android:contentDescription="E-PERMIT Logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Admin Dashboard"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="48dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/toApproveLayout"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="#6495ED"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/pending"
+                android:tint="#FFFFFF"
+                android:contentDescription="To Approve" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To Approve"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="0dp" /> <LinearLayout
+        android:id="@+id/approvedLayout"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#6495ED"
+        android:padding="16dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/approve"
+            android:tint="#FFFFFF"
+            android:contentDescription="Approved" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Approved"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

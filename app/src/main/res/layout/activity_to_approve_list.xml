@@ -1,0 +1,42 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#ADD8E6"
+        tools:context=".ToApproveListActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#6495ED"
+            android:padding="16dp"
+            android:text="To Approve List"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewToApprove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/emptyToApproveView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="No items to approve yet."
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>
