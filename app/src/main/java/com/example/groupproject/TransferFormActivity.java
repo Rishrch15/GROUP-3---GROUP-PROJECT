@@ -21,7 +21,6 @@ public class TransferFormActivity extends AppCompatActivity {
     private CheckBox checkBoxFilingCabinets, checkBoxOthers;
     private EditText editTextOthersSpecify;
 
-    // Items container and buttons
     private LinearLayout itemsContainer;
     private Button buttonAddItem, buttonSubmit;
     private LayoutInflater inflater;
@@ -31,20 +30,16 @@ public class TransferFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_form);
 
-        // Initialize views
         initializeViews();
 
-        // Set up listeners
         setupListeners();
     }
 
     private void initializeViews() {
-        // Header fields
         editTextDate = findViewById(R.id.editTextDate);
         editTextDepartment = findViewById(R.id.editTextDepartment);
         editTextRequestingOfficer = findViewById(R.id.editTextRequestingOfficer);
 
-        // Checkboxes
         checkBoxTransfer = findViewById(R.id.checkBoxTransfer);
         checkBoxPullOut = findViewById(R.id.checkBoxPullOut);
         checkBoxOfficeTables = findViewById(R.id.checkBoxOfficeTables);
@@ -52,7 +47,6 @@ public class TransferFormActivity extends AppCompatActivity {
         checkBoxOthers = findViewById(R.id.checkBoxOthers);
         editTextOthersSpecify = findViewById(R.id.editTextOthers);
 
-        // Items container and buttons
         itemsContainer = findViewById(R.id.itemsContainer);
         buttonAddItem = findViewById(R.id.buttonAddItem);
         buttonSubmit = findViewById(R.id.buttonSubmit);
@@ -61,13 +55,10 @@ public class TransferFormActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        // Add item button
         buttonAddItem.setOnClickListener(v -> addItemRow());
 
-        // Submit button
         buttonSubmit.setOnClickListener(v -> submitForm());
 
-        // Others checkbox listener
         checkBoxOthers.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editTextOthersSpecify.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             if (!isChecked) editTextOthersSpecify.setText("");
@@ -80,15 +71,11 @@ public class TransferFormActivity extends AppCompatActivity {
     }
 
     private void submitForm() {
-        // Validate required fields
         if (!validateForm()) {
             return;
         }
 
-        // Collect form data
         String formData = collectFormData();
-
-        // Display submission (replace with actual submission logic)
         Toast.makeText(this, "Form Submitted!\n" + formData, Toast.LENGTH_LONG).show();
     }
 
@@ -114,14 +101,12 @@ public class TransferFormActivity extends AppCompatActivity {
     private String collectFormData() {
         StringBuilder sb = new StringBuilder();
 
-        // Header information
         sb.append("Date: ").append(editTextDate.getText().toString().trim()).append("\n")
                 .append("Control No: ").append(editTextControlNo.getText().toString().trim()).append("\n")
                 .append("Department: ").append(editTextDepartment.getText().toString().trim()).append("\n")
                 .append("Requesting Officer: ").append(editTextRequestingOfficer.getText().toString().trim()).append("\n")
                 .append("Signature: ").append(editTextSignature.getText().toString().trim()).append("\n");
 
-        // Request type
         sb.append("\nRequest Type:\n")
                 .append("  Transfer: ").append(checkBoxTransfer.isChecked()).append("\n")
                 .append("  Pull Out: ").append(checkBoxPullOut.isChecked()).append("\n")
@@ -133,7 +118,6 @@ public class TransferFormActivity extends AppCompatActivity {
             sb.append(" - ").append(editTextOthersSpecify.getText().toString().trim());
         }
 
-        // Items
         sb.append("\n\nItems:\n");
         for (int i = 0; i < itemsContainer.getChildCount(); i++) {
             View itemRow = itemsContainer.getChildAt(i);

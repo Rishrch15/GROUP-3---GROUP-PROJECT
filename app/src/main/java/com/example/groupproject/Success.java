@@ -49,6 +49,9 @@ public class Success extends AppCompatActivity {
                 Toast.makeText(Success.this, "No request data available", Toast.LENGTH_SHORT).show();
             }
         });
-
+        btnTransfer.setOnClickListener(v -> {
+            Intent intent = new Intent(Success.this, TransferFormActivity.class);
+            startActivity(intent);
+        });
     }
 }
