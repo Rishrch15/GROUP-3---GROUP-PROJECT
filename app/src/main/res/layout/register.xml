@@ -42,67 +42,127 @@
                 android:layout_height="wrap_content"
                 android:text="Admin"
                 android:textColor="#000000"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp" />
 
             <RadioButton
                 android:id="@+id/radioStudent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Student"
-                android:textColor="#000000"/>
+                android:textColor="#000000" />
         </RadioGroup>
 
-        <EditText
-            android:id="@+id/etName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_edittext"
-            android:ems="10"
-            android:hint="Name"
-            android:padding="12dp"
-            android:inputType="textPersonName"
-            android:textColor="#000000"
-            android:textColorHint="#A9A9A9" />
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/etEmail"
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:background="@android:color/transparent"
+                android:hint="Name:"
+                android:inputType="textPersonName"
+                android:textColor="#000000"
+                android:textColorHint="#A9A9A9" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_person"
+                android:contentDescription="Name Icon" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="12dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_edittext"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColor="#000000"
-            android:textColorHint="#A9A9A9" />
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/etPassword"
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:background="@android:color/transparent"
+                android:hint="Email:"
+                android:inputType="textEmailAddress"
+                android:textColor="#000000"
+                android:textColorHint="#A9A9A9" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_email"
+                android:contentDescription="Email Icon" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="12dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_edittext"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textColor="#000000"
-            android:textColorHint="#A9A9A9" />
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/etReenterPassword"
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:background="@android:color/transparent"
+                android:hint="Password:"
+                android:inputType="textPassword"
+                android:textColor="#000000"
+                android:textColorHint="#A9A9A9" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_lock"
+                android:contentDescription="Password Icon" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="12dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/rounded_edittext"
-            android:ems="10"
-            android:hint="Re-enter Password"
-            android:inputType="textPassword"
-            android:textColor="#000000"
-            android:textColorHint="#A9A9A9" />
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/etReenterPassword"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:background="@android:color/transparent"
+                android:hint="Re-enter Password:"
+                android:inputType="textPassword"
+                android:textColor="#000000"
+                android:textColorHint="#A9A9A9" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_line"
+                android:contentDescription="Repeat Password Icon" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnRegister"
