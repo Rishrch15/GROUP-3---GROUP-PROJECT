@@ -56,7 +56,7 @@
                 android:layout_weight="1"
                 android:text="Date:" />
 
-            <EditText
+            <TextView
                 android:id="@+id/editTextDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:text="Department/Office:" />
 
-            <EditText
+            <TextView
                 android:id="@+id/editTextDepartment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -95,14 +95,14 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:id="@+id/textViewRequestingOfficerLabel"
+                android:id="@+id/textViewRequestingNameLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Name of Requesting:" />
 
-            <EditText
-                android:id="@+id/editTextRequestingOfficer"
+            <TextView
+                android:id="@+id/editTextRequestingName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -159,9 +159,9 @@
 
             <TextView android:id="@+id/textViewQtyLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Qty." android:textStyle="bold" />
             <TextView android:id="@+id/textViewDescriptionLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3" android:text="Description" android:textStyle="bold" />
-            <TextView android:id="@+id/textViewDateOfTransferLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Date of Transfer" android:textStyle="bold" />
-            <TextView android:id="@+id/textViewLocationFromLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Location From" android:textStyle="bold" />
-            <TextView android:id="@+id/textViewLocationToLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Location To" android:textStyle="bold" />
+            <TextView android:id="@+id/textViewTransferDateLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Date of Transfer" android:textStyle="bold" />
+            <TextView android:id="@+id/textViewFromLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="From" android:textStyle="bold" />
+            <TextView android:id="@+id/textViewToLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="To" android:textStyle="bold" />
             <TextView android:id="@+id/textViewRemarksLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3" android:text="Remarks" android:textStyle="bold" />
         </LinearLayout>
 
@@ -177,12 +177,12 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="4dp">
 
-                <EditText android:id="@+id/editTextQty" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:inputType="number" />
-                <EditText android:id="@+id/editTextDescription" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3" android:inputType="textMultiLine" />
-                <EditText android:id="@+id/editTextDateOfTransfer" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:inputType="date" />
-                <EditText android:id="@+id/editTextLocationFrom" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:inputType="text" />
-                <EditText android:id="@+id/editTextLocationTo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:inputType="text" />
-                <EditText android:id="@+id/editTextRemarks" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3" android:inputType="textMultiLine" />
+                <TextView android:id="@+id/editTextQty" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:inputType="number" />
+                <TextView android:id="@+id/editTextDescription" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3" android:inputType="textMultiLine" />
+                <TextView android:id="@+id/editTextDateOfTransfer" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:inputType="date" />
+                <TextView android:id="@+id/editTextFrom" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:inputType="text" />
+                <TextView android:id="@+id/editTextTo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:inputType="text" />
+                <TextView android:id="@+id/editTextRemarks" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3" android:inputType="textMultiLine" />
             </LinearLayout>
         </LinearLayout>
 

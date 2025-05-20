@@ -1,16 +1,14 @@
 package com.example.groupproject;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,4 +77,18 @@ public class BorrowActivity extends AppCompatActivity {
                 .inflate(R.layout.item_row, itemsContainer, false);
         itemsContainer.addView(row);
     }
+
+    private  void saveBorrowRequest(BorrowRequest request) {
+        SharedPreferences prefs = getSharedPreferences("permit_data", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(request);
+
+        int count = prefs.getInt("request_count", 0);
+        editor.putString("request_" + count, json);
+        editor.putInt("request_count", count + 1);
+        editor.apply();
+    }
 }
+
