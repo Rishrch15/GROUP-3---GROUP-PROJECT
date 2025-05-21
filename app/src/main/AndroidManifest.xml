@@ -25,6 +25,8 @@
         <activity android:name=".AdminDashboardActivity" />
         <activity android:name=".ToApproveListActivity" />
         <activity android:name=".ApprovedListActivity" />
+        <activity android:name=".ProfileActivity" />
+
 
 
 
