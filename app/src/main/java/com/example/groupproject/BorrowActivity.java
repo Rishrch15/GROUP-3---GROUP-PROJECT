@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -24,9 +25,9 @@ public class BorrowActivity extends AppCompatActivity {
 
     TextView textDate, textDate2, text3, text4;
 
-    EditText editDate1, editDept, editName, editProject, editDate2, editTime, editVenue;
+    EditText editDept, editName, editProject, editVenue;
     LinearLayout itemsContainer;
-    Button addItemBtn, submitBtn, button, button2, button3, button4;
+    Button addItemBtn, submitBtn, button, button2, button3, button4, qtyButton, dateOfTransferButton;
 
     public static ArrayList<BorrowRequest> requests = new ArrayList<>(); // Shared list
 
@@ -51,42 +52,52 @@ public class BorrowActivity extends AppCompatActivity {
         addItemBtn = findViewById(R.id.add_item_button);
         submitBtn = findViewById(R.id.buttonSubmit);
 
+        qtyButton = findViewById(R.id.buttonQty);
+        dateOfTransferButton = findViewById(R.id.buttonDateOfTransfer);
+
+
+        qtyButton.setOnClickListener(v -> openDialog5(qtyButton));
+        dateOfTransferButton.setOnClickListener(v -> openDialog6(dateOfTransferButton));
+
         addItemBtn.setOnClickListener(v -> addItemRow());
 
         submitBtn.setOnClickListener(v -> {
             List<BorrowRequest.Item> items = new ArrayList<>();
             for (int i = 0; i < itemsContainer.getChildCount(); i++) {
                 LinearLayout row = (LinearLayout) itemsContainer.getChildAt(i);
-                EditText qty = (EditText) row.getChildAt(0);
+                Button qty = (Button) row.getChildAt(0);
                 EditText desc = (EditText) row.getChildAt(1);
-                EditText date = (EditText) row.getChildAt(2);
+                Button date = (Button) row.getChildAt(2);
                 EditText from = (EditText) row.getChildAt(3);
                 EditText to = (EditText) row.getChildAt(4);
+
                 items.add(new BorrowRequest.Item(
                         qty.getText().toString(),
                         desc.getText().toString(),
                         date.getText().toString(),
                         from.getText().toString(),
-                        to.getText().toString()));
+                        to.getText().toString()
+                ));
+
             }
 
             BorrowRequest request = new BorrowRequest(
-                    editDate1.getText().toString(),
+                    textDate.getText().toString(),
                     editDept.getText().toString(),
                     editName.getText().toString(),
+                    text4.getText().toString(),
                     editProject.getText().toString(),
-                    editDate2.getText().toString(),
-                    editTime.getText().toString(),
+                    textDate2.getText().toString(),     // date needed
+                    text3.getText().toString(),
                     editVenue.getText().toString(),
-                    items);
+                    items
+            );
 
-            requests.add(request);
-            Gson gson = new Gson();
-            String requestJson = gson.toJson(request);
-
+            String requestJson = new Gson().toJson(request);
             Intent intent = new Intent(BorrowActivity.this, DetailActivity.class);
-            intent.putExtra("request_json", requestJson);  // send JSON string
+            intent.putExtra("request_json", requestJson);
             startActivity(intent);
+
 
 
             Toast.makeText(this, "Request Submitted!", Toast.LENGTH_SHORT).show();
@@ -125,13 +136,26 @@ public class BorrowActivity extends AppCompatActivity {
                 openDialog4();
             }
         });
+
+
+
     }
 
     private void addItemRow() {
         LinearLayout row = (LinearLayout) LayoutInflater.from(this)
                 .inflate(R.layout.item_row, itemsContainer, false);
+
+        Button qtyButton = row.findViewById(R.id.buttonQty); // Button for Qty
+        Button dateButton = row.findViewById(R.id.buttonDateOfTransfer); // Button for Date of Transfer
+
+        qtyButton.setOnClickListener(v -> openDialog5(qtyButton));
+        dateButton.setOnClickListener(v -> openDialog6(dateButton));
+
+
         itemsContainer.addView(row);
     }
+
+
 
     private  void saveBorrowRequest(BorrowRequest request) {
         SharedPreferences prefs = getSharedPreferences("permit_data", MODE_PRIVATE);
@@ -203,7 +227,34 @@ public class BorrowActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private void openDialog5(Button qtyButton) {
+        final NumberPicker numberPicker = new NumberPicker(this);
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(100);
+        numberPicker.setWrapSelectorWheel(false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Quantity");
+        builder.setView(numberPicker);
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            qtyButton.setText(String.valueOf(numberPicker.getValue()));
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+
+    private void openDialog6(Button dateOfTransferButton) {
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            String date = year + "." + (month + 1) + "." + dayOfMonth;
+            dateOfTransferButton.setText(date);
+        }, 2025, 4, 21);
+
+        dialog.show();
+    }
+
+
+
 
 
 }
-

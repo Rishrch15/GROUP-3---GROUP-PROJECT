@@ -33,7 +33,6 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             BorrowRequest selected = BorrowActivity.requests.get(position);
             Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra("request", selected);
             startActivity(intent);
         });
     }

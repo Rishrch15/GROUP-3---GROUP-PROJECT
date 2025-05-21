@@ -55,7 +55,7 @@ public class ToApproveListActivity extends AppCompatActivity {
             return;
         }
 
-        textDate.setText(request.date1);
+        textDate.setText(request.todayDate);
         textDepartment.setText(request.department);
         textRequestingName.setText(request.borrowerName);
         textProjectName.setText(request.projectName);
@@ -66,7 +66,7 @@ public class ToApproveListActivity extends AppCompatActivity {
             BorrowRequest.Item item = request.items.get(0);
             textQty.setText(String.valueOf(item.qty));
             textDescription.setText(item.description);
-            textTransferDate.setText(item.dateOfTransfer);
+            textTransferDate.setText(item.DateOfTransfer);
             textFrom.setText(item.locationFrom);
             textTo.setText(item.locationTo);
         }
