@@ -1,13 +1,10 @@
 package com.example.groupproject;
 
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.gson.Gson;
 
 public class ApproveActivity extends AppCompatActivity {
@@ -15,8 +12,6 @@ public class ApproveActivity extends AppCompatActivity {
     private TextView textDate, textDepartment, textRequestingName, textProjectName, textDateTime, textVenue;
     private TextView textQty, textDescription, textTransferDate, textFrom, textTo, textReturnDate, textRemarks;
     private TextView textApprovedBy;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +38,17 @@ public class ApproveActivity extends AppCompatActivity {
     }
 
     private void loadRequestData() {
-        BorrowRequest request = (BorrowRequest) getIntent().getSerializableExtra("request");
+        String json = getIntent().getStringExtra("request_json");
+        BorrowRequest request = null;
 
-        if (request == null) {
+        if (json != null) {
+            Gson gson = new Gson();
+            request = gson.fromJson(json, BorrowRequest.class);
+        } else {
             SharedPreferences prefs = getSharedPreferences("permit_data", MODE_PRIVATE);
-            String json = prefs.getString("request_json", null);
+            json = prefs.getString("request_json", null);
             if (json != null) {
-                Gson gson = new Gson();
-                request = gson.fromJson(json, BorrowRequest.class);
+                request = new Gson().fromJson(json, BorrowRequest.class);
             }
         }
 
@@ -59,7 +57,7 @@ public class ApproveActivity extends AppCompatActivity {
             return;
         }
 
-        textDate.setText(request.date1);
+        textDate.setText(request.todayDate);
         textDepartment.setText(request.department);
         textRequestingName.setText(request.borrowerName);
         textProjectName.setText(request.projectName);
@@ -70,7 +68,7 @@ public class ApproveActivity extends AppCompatActivity {
             BorrowRequest.Item item = request.items.get(0);
             textQty.setText(String.valueOf(item.qty));
             textDescription.setText(item.description);
-            textTransferDate.setText(item.dateOfTransfer);
+            textTransferDate.setText(item.DateOfTransfer);
             textFrom.setText(item.locationFrom);
             textTo.setText(item.locationTo);
         }
