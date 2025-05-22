@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:padding="24dp"
@@ -43,7 +44,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/pending"
-                android:tint="#FFFFFF"
+                app:tint="#FFFFFF"
                 android:contentDescription="To Approve" />
 
             <TextView
@@ -74,7 +75,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/approve"
-            android:tint="#FFFFFF"
+            app:tint="#FFFFFF"
             android:contentDescription="Approved" />
 
         <TextView

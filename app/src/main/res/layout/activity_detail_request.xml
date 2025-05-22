@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Review Borrow Request"
+            android:text="Borrow Request Details"
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -28,46 +28,46 @@
             android:padding="16dp"
             android:layout_marginBottom="16dp">
 
-            <TextView android:id="@+id/detailDateSubmitted"
+            <TextView android:id="@+id/tvDateSubmitted"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textStyle="bold" android:textSize="16sp" android:layout_marginBottom="4dp"
                 android:text="Date Submitted: "/>
-            <TextView android:id="@+id/detailDepartment"
+            <TextView android:id="@+id/tvDepartment"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textSize="16sp" android:layout_marginBottom="4dp"
                 android:text="Department: "/>
-            <TextView android:id="@+id/detailBorrowerName"
+            <TextView android:id="@+id/tvBorrowerName"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textSize="16sp" android:layout_marginBottom="4dp"
                 android:text="Borrower Name: "/>
-            <TextView android:id="@+id/detailGender"
+            <TextView android:id="@+id/tvGender"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textSize="16sp" android:layout_marginBottom="4dp"
                 android:text="Gender: "/>
-            <TextView android:id="@+id/detailProjectName"
+            <TextView android:id="@+id/tvProjectName"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textStyle="bold" android:textSize="16sp" android:layout_marginBottom="4dp"
                 android:text="Project Name: "/>
-            <TextView android:id="@+id/detailDateOfProject"
+            <TextView android:id="@+id/tvDateOfProject"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textSize="16sp" android:layout_marginBottom="4dp"
                 android:text="Date of Project: "/>
-            <TextView android:id="@+id/detailTimeOfProject"
+            <TextView android:id="@+id/tvTimeOfProject"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textSize="16sp" android:layout_marginBottom="4dp"
                 android:text="Time of Project: "/>
-            <TextView android:id="@+id/detailVenue"
+            <TextView android:id="@+id/tvVenue"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textSize="16sp" android:layout_marginBottom="4dp"
                 android:text="Venue: "/>
 
-            <TextView android:id="@+id/detailStatus"
+            <TextView android:id="@+id/tvStatus"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="8dp"
                 android:text="Status: Pending"
                 android:textColor="#FF9800"/>
 
-            <TextView android:id="@+id/detailApprovedBy"
+            <TextView android:id="@+id/tvApprovedBy"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:textSize="16sp" android:layout_marginTop="4dp"
                 android:textStyle="italic"
@@ -86,44 +86,12 @@
             android:textColor="@color/black"/>
 
         <LinearLayout
-            android:id="@+id/detailItemsContainer"
+            android:id="@+id/itemsDetailContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/rounded_card_background"
             android:padding="16dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="20dp">
-
-            <Button
-                android:id="@+id/btnApprove"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Approve"
-                android:textSize="18sp"
-                android:padding="12dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="#4CAF50"
-                android:textColor="@android:color/white"/>
-
-            <Button
-                android:id="@+id/btnReject"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Reject"
-                android:textSize="18sp"
-                android:padding="12dp"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="#F44336"
-                android:textColor="@android:color/white"/>
-        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

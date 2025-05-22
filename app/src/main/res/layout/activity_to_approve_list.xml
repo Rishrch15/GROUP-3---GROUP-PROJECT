@@ -1,104 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ice_blue_white_background"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/bg_blue_to_white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:elevation="4dp"
-        android:layout_margin="8dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TO APPROVE"
+            android:text="Borrow Request Summary"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#000000"
             android:gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="24dp"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Date:" android:textColor="#000000"/>
-        <TextView android:id="@+id/textViewDate" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#000000"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E0F2" android:layout_marginBottom="8dp" />
+        <TextView
+            android:id="@+id/textViewDateSubmitted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Date Submitted: [Date]"
+            android:textColor="@color/black"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Department:" android:textColor="#000000"/>
-        <TextView android:id="@+id/textViewDepartment" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#000000"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E0F2" android:layout_marginBottom="8dp" />
+        <TextView
+            android:id="@+id/textViewDepartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Department/Office: [Department]"
+            android:textColor="@color/black"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Name of Requesting:" android:textColor="#000000"/>
-        <TextView android:id="@+id/textViewRequestingName" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#000000"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E0F2" android:layout_marginBottom="8dp" />
+        <TextView
+            android:id="@+id/textViewBorrowerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Name of Borrower: [Name]"
+            android:textColor="@color/black"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sir/Ma'am," android:layout_marginTop="8dp" android:textColor="#000000"/>
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="I would like to request for the following items:" android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/textViewGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Gender: [Gender]"
+            android:textColor="@color/black"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Name of Project:" android:textColor="#000000"/>
-        <TextView android:id="@+id/textViewProjectName" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#000000"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E0F2" android:layout_marginBottom="8dp" />
+        <TextView
+            android:id="@+id/textViewProjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Project Name: [Project Name]"
+            android:textColor="@color/black"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Date and Time:" android:textColor="#000000"/>
-        <TextView android:id="@+id/textViewDateTime" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#000000"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E0F2" android:layout_marginBottom="8dp" />
+        <TextView
+            android:id="@+id/textViewDateOfProject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Date of Project: [Date]"
+            android:textColor="@color/black"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Venue:" android:textColor="#000000"/>
-        <TextView android:id="@+id/textViewVenue" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#000000"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E0F2" android:layout_marginBottom="8dp" />
+        <TextView
+            android:id="@+id/textViewTimeOfProject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Time of Project: [Time]"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/textViewVenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            android:text="Venue: [Venue]"
+            android:textColor="@color/black"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Item Details"
+            android:text="First Item Details (Summary):"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginTop="16dp" />
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:background="#E0E0E0"
+            android:layout_marginBottom="16dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textViewQty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="4dp">
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"
+                android:text="Quantity: "
+                android:textColor="@color/black"/>
 
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Qty" android:textColor="#000000"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Description" android:textColor="#000000"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Date of Transfer" android:textColor="#000000"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="From" android:textColor="#000000"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="To" android:textColor="#000000"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Date of Return" android:textColor="#000000"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="Remarks" android:textColor="#000000"/>
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textViewDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp">
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"
+                android:text="Description: "
+                android:textColor="@color/black"/>
 
-                <TextView android:id="@+id/textViewQty" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="#000000"/>
-                <TextView android:id="@+id/textViewDescription" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:textColor="#000000"/>
-                <TextView android:id="@+id/textViewTransferDate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:textColor="#000000"/>
-                <TextView android:id="@+id/textViewFrom" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="#000000"/>
-                <TextView android:id="@+id/textViewTo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="#000000"/>
-                <TextView android:id="@+id/textViewReturnDate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:textColor="#000000"/>
-                <TextView android:id="@+id/textViewRemarks" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:textColor="#000000"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textViewTransferDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"
+                android:text="Transfer Date: "
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/textViewFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"
+                android:text="From: "
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/textViewTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="To: "
+                android:textColor="@color/black"/>
         </LinearLayout>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Approved By:" android:layout_marginTop="16dp" android:textColor="#000000"/>
-        <TextView android:id="@+id/textViewApprovedBy" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#000000"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E0F2" android:layout_marginBottom="8dp" />
+        <TextView
+            android:id="@+id/textViewReturnDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Return Date: "
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/textViewRemarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:text="Remarks: "
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/textViewApprovedBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:layout_marginTop="24dp"
+            android:gravity="end"
+            android:text="Approved By: ____________________"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 </ScrollView>

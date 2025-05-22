@@ -3,290 +3,274 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ice_blue_white_background"> <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/bottom_navigation"
-    android:fillViewport="true"
-    android:padding="16dp">
+    android:background="@drawable/ice_blue_white_background">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:paddingBottom="16dp"  > <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Permit To Transfer"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="50dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/dateButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date Today" />
-
-            <TextView
-                android:id="@+id/showText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:hint="Select Date"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Department/Office:"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
-
-        <EditText
-            android:id="@+id/editTextDepartment"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:padding="10dp"
-            android:layout_marginBottom="16dp" android:background="@drawable/rounded_edittext"
-            android:inputType="text"
-            android:hint="Enter Department" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name of borrower:"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
-
-        <EditText
-            android:id="@+id/editTextBorrowerName"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:padding="10dp"
-            android:layout_marginBottom="16dp" android:background="@drawable/rounded_edittext"
-            android:inputType="text"
-            android:hint="Enter Name" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/genderButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gender" />
-
-            <TextView
-                android:id="@+id/showText4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:hint="Select Gender"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textViewSirMadam"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Sir/Madam:"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/textViewRequestIntro"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="I would like to request for the following items:"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:fillViewport="true"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="16dp">
+            android:gravity="center_horizontal"
+            android:paddingBottom="16dp">
 
-            <CheckBox android:id="@+id/checkBoxTransfer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Transfer / Relocation" />
-            <CheckBox android:id="@+id/checkBoxPullOut" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pull-out / Return" />
-            <CheckBox android:id="@+id/checkBoxOfficeTables" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Office tables/Chairs" />
-            <CheckBox android:id="@+id/checkBoxFilingCabinets" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Filing Cabinets/Shelves" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Permit To Transfer"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="50dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <Button
+                    android:id="@+id/dateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Today"
+                    android:background="@drawable/button_rounded"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginEnd="8dp"/>
 
-                <CheckBox android:id="@+id/checkBoxOthers" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Others" />
-
-                <EditText
-                    android:id="@+id/editTextOthers"
+                <TextView
+                    android:id="@+id/showText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Specify"
-                    android:inputType="text"
-                    android:background="@drawable/rounded_edittext"
                     android:padding="8dp"
-                    android:layout_marginStart="8dp"/>
+                    android:background="@drawable/rounded_edittext"
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:hint="Select Date"
+                    android:clickable="true"
+                    android:focusable="false"/>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="4dp">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Qty."
-                android:textStyle="bold"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="Description"
-                android:textStyle="bold"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Date of Transfer"
-                android:textStyle="bold"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="From"
-                android:textStyle="bold"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="To"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:text="Department/Office:"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
 
-        </LinearLayout>
+            <EditText
+                android:id="@+id/editTextDepartment"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_edittext"
+                android:inputType="text"
+                android:hint="Enter Department"
+                android:textColor="@color/black"
+                android:ems="10"/>
 
-        <LinearLayout
-            android:id="@+id/itemsContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name of borrower:"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/editTextBorrowerName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_edittext"
+                android:inputType="text"
+                android:hint="Enter Name"
+                android:textColor="@color/black"
+                android:ems="10"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <Button
+                    android:id="@+id/genderButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:background="@drawable/button_rounded"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:id="@+id/showText4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:hint="Select Gender"
+                    android:clickable="true"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewSirMadam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sir/Madam:"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/textViewRequestIntro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I would like to request for the following items:"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <CheckBox
+                    android:id="@+id/checkBoxTransfer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transfer / Relocation" />
+                <CheckBox
+                    android:id="@+id/checkBoxPullOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pull-out / Return" />
+                <CheckBox
+                    android:id="@+id/checkBoxOfficeTables"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Office tables/Chairs" />
+                <CheckBox
+                    android:id="@+id/checkBoxFilingCabinets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filing Cabinets/Shelves" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxOthers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Others" />
+
+                    <EditText
+                        android:id="@+id/editTextOthers"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:hint="Specify"
+                        android:inputType="text"
+                        android:background="@drawable/rounded_edittext"
+                        android:padding="8dp"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:visibility="gone"
+                        android:ems="10"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="4dp">
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="4dp">
 
-                <EditText
-                    android:id="@+id/editTextQty"
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Qty"
-                    android:inputType="number"
-                    android:background="@drawable/rounded_edittext"
-                    android:padding="8dp"
-                    android:layout_marginEnd="4dp"/>
-                <EditText
-                    android:id="@+id/editTextDescription"
+                    android:text="Qty."
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:hint="Description"
-                    android:inputType="text"
-                    android:background="@drawable/rounded_edittext"
-                    android:padding="8dp"
-                    android:layout_marginEnd="4dp"/>
-                <LinearLayout
+                    android:text="Description"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:orientation="horizontal">
-                    <EditText
-                        android:id="@+id/editTextDateOfTransfer"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Date"
-                        android:focusable="false"
-                        android:clickable="true"
-                        android:background="@drawable/rounded_edittext"
-                        android:padding="8dp"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/editTextFrom"
+                    android:text="Date of Transfer"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:hint="From"
-                    android:inputType="text"
-                    android:background="@drawable/rounded_edittext"
-                    android:padding="8dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"/>
-                <EditText
-                    android:id="@+id/editTextTo"
+                    android:text="From"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:hint="To"
-                    android:inputType="text"
-                    android:background="@drawable/rounded_edittext"
-                    android:padding="8dp"
-                    android:layout_marginEnd="4dp"/>
-            </LinearLayout>
+                    android:text="To"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" " /> </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/itemsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/buttonAddItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Item"
+                android:background="@drawable/button_rounded"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/buttonSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit Request"
+                android:background="@drawable/button_rounded"
+                android:textColor="#FFFFFF"
+                android:padding="12dp"
+                android:textSize="18sp"/>
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonAddItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="16dp"
-            android:text="+ Add Item"
-            android:background="@drawable/button_rounded"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/buttonSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Submit Request"
-            android:background="@drawable/button_rounded"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp"/> </LinearLayout>
-</ScrollView>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

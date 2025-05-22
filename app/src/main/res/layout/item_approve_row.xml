@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:gravity="center_vertical"
+    android:background="#F0F0F0"
+    android:layout_marginBottom="2dp">
+
+    <TextView
+        android:id="@+id/approveTextViewQty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="1"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/approveTextViewDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="Laptop"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/approveTextViewDateOfTransfer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="2023.01.01"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/approveTextViewFrom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Lab 1"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/approveTextViewTo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Office"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+</LinearLayout>

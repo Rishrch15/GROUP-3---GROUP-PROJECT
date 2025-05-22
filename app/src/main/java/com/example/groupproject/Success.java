@@ -3,20 +3,20 @@ package com.example.groupproject;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem; // Import MenuItem
+import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull; // Import NonNull
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView; // Import BottomNavigationView
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
 public class Success extends AppCompatActivity {
 
     ImageButton btnBarrow, btnPending, btnApprove, btnTransfer;
-    BottomNavigationView bottomNavigationView; // Declare BottomNavigationView
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +27,13 @@ public class Success extends AppCompatActivity {
         btnPending = findViewById(R.id.btnPending);
         btnApprove = findViewById(R.id.btnApprove);
         btnTransfer = findViewById(R.id.btnTransfer);
-        bottomNavigationView = findViewById(R.id.bottom_navigation); // Initialize BottomNavigationView
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Set up BottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.nav_dashboard) {
-                    // Already on Dashboard, no action needed or you can refresh
                     Toast.makeText(Success.this, "Dashboard Selected", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.nav_profile) {
@@ -56,6 +54,9 @@ public class Success extends AppCompatActivity {
         });
 
         btnPending.setOnClickListener(v -> {
+            // As per previous corrections, ListActivity now expects request_id.
+            // However, this button likely shows a list of pending requests,
+            // not a single one, so it probably doesn't need to pass a request_id here.
             Intent intent = new Intent(Success.this, ListActivity.class);
             startActivity(intent);
         });
@@ -68,8 +69,9 @@ public class Success extends AppCompatActivity {
                 Gson gson = new Gson();
                 BorrowRequest request = gson.fromJson(json, BorrowRequest.class);
 
-                Intent intent = new Intent(Success.this, ApproveActivity.class);
-                intent.putExtra("request", request);
+                Intent intent = new Intent(Success.this,ToApproveListActivity.class);
+                // Corrected: Pass request_id instead of the whole object
+                intent.putExtra("request_id", request.getRequestId()); // Assuming BorrowRequest has getRequestId()
                 startActivity(intent);
             } else {
                 Toast.makeText(Success.this, "No request data available", Toast.LENGTH_SHORT).show();
@@ -85,11 +87,11 @@ public class Success extends AppCompatActivity {
     private void performLogout() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Clear all data
+        editor.clear();
         editor.apply();
 
         Intent loginIntent = new Intent(Success.this, MainActivity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear activity stack
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(loginIntent);
         finish();
         Toast.makeText(this, "Logged out successfully!", Toast.LENGTH_SHORT).show();

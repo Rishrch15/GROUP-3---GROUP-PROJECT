@@ -6,30 +6,36 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem; // Make sure this is imported
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText; // Use EditText for input fields
+import android.widget.EditText;
+import android.widget.ImageButton; // Added for the remove item button
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull; // Import for @NonNull
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken; // Import for List deserialization
 
+import java.lang.reflect.Type; // Import for Type
 import java.util.Calendar;
-import java.util.ArrayList; // Needed if you plan to store multiple items
-import java.util.List; // Needed if you plan to store multiple items
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID; // For generating unique request IDs
 
 public class TransferFormActivity extends AppCompatActivity {
 
     // Declare UI elements
-    private TextView showTextDateToday; // Renamed for clarity: this is the TextView showing the selected date
+    private TextView textViewDateToday; // Renamed for clarity: this is the TextView showing the selected date
     private EditText editTextDepartment, editTextBorrowerName, editTextOthersSpecify;
-    private TextView showTextGender; // Renamed for clarity: this is the TextView showing the selected gender
+    private TextView textViewGender; // Renamed for clarity: this is the TextView showing the selected gender
 
     private CheckBox checkBoxTransfer, checkBoxPullOut, checkBoxOfficeTables;
     private CheckBox checkBoxFilingCabinets, checkBoxOthers;
@@ -39,10 +45,16 @@ public class TransferFormActivity extends AppCompatActivity {
     private LayoutInflater inflater;
 
     // Assuming you have a class named BorrowRequest and an inner class Item
-    private BorrowRequest request;
+    private BorrowRequest request; // For loading existing data
+    private List<BorrowRequest.Item> currentItems = new ArrayList<>(); // Crucial: To manage items added via dialog
 
     // Declare BottomNavigationView at class level
     private BottomNavigationView bottomNavigationView;
+
+    // Key for SharedPreferences to store the list of requests
+    private static final String PREFS_NAME = "all_borrow_requests";
+    private static final String REQUESTS_KEY = "list_of_requests";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +62,10 @@ public class TransferFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transfer_form); // Ensure this XML layout name is correct
 
         // --- Initialize UI Elements ---
-        showTextDateToday = findViewById(R.id.showText); // TextView for Date Today
+        textViewDateToday = findViewById(R.id.showText); // TextView for Date Today (using showText as per your XML)
         editTextDepartment = findViewById(R.id.editTextDepartment); // EditText for Department
         editTextBorrowerName = findViewById(R.id.editTextBorrowerName); // EditText for Borrower Name
-        showTextGender = findViewById(R.id.showText4); // TextView for Gender
+        textViewGender = findViewById(R.id.showText4); // TextView for Gender (using showText4 as per your XML)
 
         checkBoxTransfer = findViewById(R.id.checkBoxTransfer);
         checkBoxPullOut = findViewById(R.id.checkBoxPullOut);
@@ -71,106 +83,103 @@ public class TransferFormActivity extends AppCompatActivity {
 
         inflater = LayoutInflater.from(this); // Initialize LayoutInflater
 
-        // --- Set up Click Listeners ---
-        buttonDateToday.setOnClickListener(v -> openDatePicker(showTextDateToday));
-        buttonGender.setOnClickListener(v -> openGenderPicker(showTextGender)); // Pass the correct TextView
+        // Set today's date and default gender on creation if not loading existing data
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        textViewDateToday.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day));
+        textViewGender.setText("Male"); // Default gender
 
-        buttonAddItem.setOnClickListener(v -> addItemRow()); // Listener for Add Item button
+        // --- Set up Click Listeners ---
+        buttonDateToday.setOnClickListener(v -> openDatePicker(textViewDateToday));
+        // Allow clicking the TextView itself to open the picker
+        textViewDateToday.setOnClickListener(v -> openDatePicker(textViewDateToday));
+
+        buttonGender.setOnClickListener(v -> openGenderPicker(textViewGender)); // Pass the correct TextView
+        // Allow clicking the TextView itself to open the picker
+        textViewGender.setOnClickListener(v -> openGenderPicker(textViewGender));
+
+        // This button now opens the dialog to add an item
+        buttonAddItem.setOnClickListener(v -> showAddItemDialog());
 
         // --- Load existing data or set up initial state ---
-        loadRequestData();
+        // This part needs adjustment if you want to load a specific request for editing.
+        // For simply submitting new requests, you might not need to load a 'request' via intent.
+        // However, if you intend to reuse this form to *edit* a request, this logic is useful.
+        loadRequestFromIntent(); // Renamed and adjusted
         setupListeners(); // Setup other listeners like submit and checkbox
 
         // --- Bottom Navigation Setup (Moved to onCreate) ---
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_dashboard); // Highlight transfer icon, assuming this is the correct ID for this page
+        // Using R.id.nav_dashboard as an example, ensure this ID exists in your bottom_navigation_menu.xml
+        // This should reflect the current activity or be set to a default.
+        bottomNavigationView.setSelectedItemId(R.id.nav_dashboard); // Select current page's icon
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.nav_dashboard) {
-                    Intent dashboardIntent = new Intent(TransferFormActivity.this, Success.class); // Use TransferFormActivity.this
-                    startActivity(dashboardIntent);
-                    // Optional: finish() this activity if you don't want it on the back stack
-                    // finish();
-                    return true;
-                } else if (id == R.id.nav_profile) {
-                    Intent profileIntent = new Intent(TransferFormActivity.this, ProfileActivity.class); // Use TransferFormActivity.this
-                    startActivity(profileIntent);
-                    // Optional: finish() this activity
-                    // finish();
-                    return true;
-                } else if (id == R.id.nav_logout) {
-                    performLogout();
-                    return true;
-                } else if (id == R.id.nav_dashboard) { // Assuming nav_transfer is the ID for this form
-                    Toast.makeText(TransferFormActivity.this, "You are already on the Dashboard", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_dashboard) {
+                Intent dashboardIntent = new Intent(TransferFormActivity.this, Success.class);
+                startActivity(dashboardIntent);
+                return true;
+            } else if (id == R.id.nav_profile) {
+                Intent profileIntent = new Intent(TransferFormActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
+                return true;
             }
+            else if (id == R.id.nav_logout) {
+                performLogout();
+                return true;
+            }
+            return false;
         });
     } // End of onCreate
 
     // --- Methods for form logic ---
 
-    private void loadRequestData() {
-        // This part needs careful handling if you're dynamically adding rows.
-        // The current XML has one fixed row. If you load data, you'd populate that fixed row
-        // or add new rows if there are multiple items in 'request.items'.
-
-        request = (BorrowRequest) getIntent().getSerializableExtra("request");
+    private void loadRequestFromIntent() {
+        // This method will load a specific BorrowRequest object if passed via intent
+        // (e.g., when editing an existing request from a list)
+        request = (BorrowRequest) getIntent().getSerializableExtra("request_to_edit");
 
         if (request == null) {
-            SharedPreferences prefs = getSharedPreferences("permit_data", MODE_PRIVATE);
-            String json = prefs.getString("request_json", null);
-            if (json != null) {
-                Gson gson = new Gson();
-                request = gson.fromJson(json, BorrowRequest.class);
-            }
-        }
-
-        if (request == null) {
-            Toast.makeText(this, "No request data available", Toast.LENGTH_SHORT).show();
-            // If no request data, ensure your initial UI state is ready for new input
-            // For example, make sure the "Others" EditText is hidden if the checkbox isn't checked
+            // If no request is passed via intent, initialize with current date and default gender
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            textViewDateToday.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day));
+            textViewGender.setText("Male");
             editTextOthersSpecify.setVisibility(checkBoxOthers.isChecked() ? View.VISIBLE : View.GONE);
             return;
         }
 
-        // Set text for the UI elements based on loaded data
-        showTextDateToday.setText(request.date1); // Assuming date1 is the field for "Date Today"
+        // If a request object exists, populate the form fields with its data
+        textViewDateToday.setText(request.date1);
         editTextDepartment.setText(request.department);
         editTextBorrowerName.setText(request.borrowerName);
-        showTextGender.setText(request.gender); // Assuming 'gender' field exists in BorrowRequest
+        textViewGender.setText(request.gender);
 
-        // Set checkbox states
-        checkBoxTransfer.setChecked(request.isTransfer); // Assuming isTransfer field exists
-        checkBoxPullOut.setChecked(request.isPullOut); // Assuming isPullOut field exists
-        checkBoxOfficeTables.setChecked(request.isOfficeTables); // Assuming isOfficeTables field exists
-        checkBoxFilingCabinets.setChecked(request.isFilingCabinets); // Assuming isFilingCabinets field exists
-        checkBoxOthers.setChecked(request.isOthers); // Assuming isOthers field exists
-        editTextOthersSpecify.setText(request.othersSpecify); // Assuming othersSpecify field exists
+        checkBoxTransfer.setChecked(request.isTransfer);
+        checkBoxPullOut.setChecked(request.isPullOut);
+        checkBoxOfficeTables.setChecked(request.isOfficeTables);
+        checkBoxFilingCabinets.setChecked(request.isFilingCabinets);
+        checkBoxOthers.setChecked(request.isOthers);
+        editTextOthersSpecify.setText(request.othersSpecify);
         editTextOthersSpecify.setVisibility(request.isOthers ? View.VISIBLE : View.GONE);
 
-
-        // Clear existing dynamic items if any (important when loading to avoid duplicates)
-        itemsContainer.removeAllViews();
+        itemsContainer.removeAllViews(); // Clear existing dynamic items
+        currentItems.clear(); // Clear the list
 
         if (request.items != null && !request.items.isEmpty()) {
-            // Populate the first item row (if it's static in XML) or dynamically add all
-            // If activity_transfer_form.xml already contains one item row with IDs like editTextQty, etc.
-            // then you can populate that one first and then add new rows for subsequent items.
-            // For now, I'm assuming you will always dynamically add rows, even for the first one.
             for (BorrowRequest.Item item : request.items) {
-                addItemRow(item); // Call a version that takes an Item object to populate
+                currentItems.add(item); // Add to the list
+                addItemSummaryRow(item); // Display summary row
             }
-        } else {
-            // If no items, add an empty row to start with for new input
-            addItemRow();
         }
+        Toast.makeText(this, "Editing existing request", Toast.LENGTH_SHORT).show();
     }
+
 
     private void setupListeners() {
         buttonSubmit.setOnClickListener(v -> submitForm());
@@ -181,35 +190,95 @@ public class TransferFormActivity extends AppCompatActivity {
         });
     }
 
-    // Method to add an empty item row for new input
-    private void addItemRow() {
-        addItemRow(null); // Call the overloaded method without an Item to populate
+    // Method to show the dialog for adding an item
+    private void showAddItemDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        // Assuming you have this layout defined: dialog_add_transfer_item.xml
+        View dialogView = inflater.inflate(R.layout.dialog_add_transfer_item, null);
+        builder.setView(dialogView);
+
+        NumberPicker dialogQtyPicker = dialogView.findViewById(R.id.dialogNumberPickerQty);
+        EditText dialogDescription = dialogView.findViewById(R.id.dialogEditTextDescription);
+        TextView dialogDateOfTransfer = dialogView.findViewById(R.id.dialogTextViewDateOfTransfer);
+        Button dialogDateButton = dialogView.findViewById(R.id.dialogButtonDateOfTransfer);
+        EditText dialogLocationFrom = dialogView.findViewById(R.id.dialogEditTextLocationFrom);
+        EditText dialogLocationTo = dialogView.findViewById(R.id.dialogEditTextLocationTo);
+
+        dialogQtyPicker.setMinValue(1);
+        dialogQtyPicker.setMaxValue(100);
+        dialogQtyPicker.setValue(1); // Default quantity
+
+        // Set current date to the dialog's date field
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        dialogDateOfTransfer.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day)); // Consistent format
+
+        dialogDateButton.setOnClickListener(v -> openDatePicker(dialogDateOfTransfer)); // Use consistent openDatePicker
+        dialogDateOfTransfer.setOnClickListener(v -> openDatePicker(dialogDateOfTransfer)); // Make TextView clickable too
+
+        AlertDialog dialog = builder.create();
+
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Add", (d, which) -> {}); // Keep empty for custom listener
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", (d, which) -> d.dismiss());
+
+        dialog.show();
+
+        // Custom listener for the positive button to prevent dismiss on validation failure
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String qtyStr = String.valueOf(dialogQtyPicker.getValue());
+            String description = dialogDescription.getText().toString().trim();
+            String dateOfTransfer = dialogDateOfTransfer.getText().toString().trim();
+            String locationFrom = dialogLocationFrom.getText().toString().trim();
+            String locationTo = dialogLocationTo.getText().toString().trim();
+            String remarks = ""; // Added this to match the Item constructor signature
+
+            if (description.isEmpty() || dateOfTransfer.isEmpty() ||
+                    locationFrom.isEmpty() || locationTo.isEmpty()) {
+                Toast.makeText(this, getString(R.string.please_fill_all_item_fields_dialog), Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    int qty = Integer.parseInt(qtyStr);
+                    BorrowRequest.Item newItem = new BorrowRequest.Item(
+                            qty, description, dateOfTransfer, locationFrom, locationTo, remarks); // Now passing all 6 arguments
+
+                    currentItems.add(newItem); // Add to the list
+                    addItemSummaryRow(newItem); // Add item to summary view
+
+                    Toast.makeText(this, getString(R.string.item_added), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss(); // Dismiss dialog only on success
+                } catch (NumberFormatException e) {
+                    Toast.makeText(this, getString(R.string.invalid_quantity), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    // Overloaded method to add an item row, optionally populating it with data
-    private void addItemRow(BorrowRequest.Item itemData) {
-        // You MUST have a layout file named 'item_row.xml' in res/layout/
-        // This file should contain the EditTexts for qty, description, date, from, to, remarks.
-        View itemRowView = inflater.inflate(R.layout.item_row, itemsContainer, false);
+    // This method is used to display the added item in the main form's itemsContainer
+    private void addItemSummaryRow(BorrowRequest.Item item) {
+        // Assuming you have this layout defined: item_transfer_summary_row.xml
+        View itemRowView = inflater.inflate(R.layout.item_transfer_summary_row, itemsContainer, false);
 
-        final EditText editTextQty = itemRowView.findViewById(R.id.editTextQty);
-        final EditText editTextDescription = itemRowView.findViewById(R.id.editTextDescription);
-        final EditText editTextDateOfTransfer = itemRowView.findViewById(R.id.editTextDateOfTransfer);
-        final EditText editTextFrom = itemRowView.findViewById(R.id.editTextFrom);
-        final EditText editTextTo = itemRowView.findViewById(R.id.editTextTo);
-        final EditText editTextRemarks = itemRowView.findViewById(R.id.editTextRemarks);
+        TextView summaryQty = itemRowView.findViewById(R.id.summaryTextViewQty);
+        TextView summaryDescription = itemRowView.findViewById(R.id.summaryTextViewDescription);
+        TextView summaryDateOfTransfer = itemRowView.findViewById(R.id.summaryTextViewDateOfTransfer);
+        TextView summaryFrom = itemRowView.findViewById(R.id.summaryTextViewFrom);
+        TextView summaryTo = itemRowView.findViewById(R.id.summaryTextViewTo);
+        ImageButton removeItemButton = itemRowView.findViewById(R.id.removeItemButton);
 
-        // Populate if itemData is provided (for loading existing requests)
-        if (itemData != null) {
-            editTextQty.setText(String.valueOf(itemData.qty));
-            editTextDescription.setText(itemData.description);
-            editTextDateOfTransfer.setText(itemData.dateOfTransfer);
-            editTextFrom.setText(itemData.locationFrom);
-            editTextTo.setText(itemData.locationTo);
-            editTextRemarks.setText(itemData.remarks); // Assuming a remarks field in Item
-        }
+        summaryQty.setText(String.valueOf(item.qty));
+        summaryDescription.setText(item.description);
+        summaryDateOfTransfer.setText(item.dateOfTransfer);
+        summaryFrom.setText(item.locationFrom);
+        summaryTo.setText(item.locationTo);
 
-        // Set listener for the date picker button within this new row
+        removeItemButton.setOnClickListener(v -> {
+            itemsContainer.removeView(itemRowView);
+            currentItems.remove(item);
+            Toast.makeText(this, getString(R.string.item_removed), Toast.LENGTH_SHORT).show();
+        });
 
         itemsContainer.addView(itemRowView);
     }
@@ -219,12 +288,13 @@ public class TransferFormActivity extends AppCompatActivity {
             return;
         }
 
-        // Collect form data into a BorrowRequest object
         BorrowRequest newRequest = new BorrowRequest();
-        newRequest.date1 = showTextDateToday.getText().toString().trim();
+        // Generate a unique ID for the request
+        newRequest.requestId = UUID.randomUUID().toString(); // Ensure requestId is in BorrowRequest
+        newRequest.date1 = textViewDateToday.getText().toString().trim();
         newRequest.department = editTextDepartment.getText().toString().trim();
         newRequest.borrowerName = editTextBorrowerName.getText().toString().trim();
-        newRequest.gender = showTextGender.getText().toString().trim();
+        newRequest.gender = textViewGender.getText().toString().trim();
 
         newRequest.isTransfer = checkBoxTransfer.isChecked();
         newRequest.isPullOut = checkBoxPullOut.isChecked();
@@ -235,105 +305,49 @@ public class TransferFormActivity extends AppCompatActivity {
             newRequest.othersSpecify = editTextOthersSpecify.getText().toString().trim();
         }
 
-        List<BorrowRequest.Item> items = new ArrayList<>();
-        for (int i = 0; i < itemsContainer.getChildCount(); i++) {
-            View itemRow = itemsContainer.getChildAt(i);
-            EditText qtyEditText = itemRow.findViewById(R.id.editTextQty);
-            EditText descriptionEditText = itemRow.findViewById(R.id.editTextDescription);
-            EditText dateOfTransferEditText = itemRow.findViewById(R.id.editTextDateOfTransfer);
-            EditText locationFromEditText = itemRow.findViewById(R.id.editTextFrom);
-            EditText locationToEditText = itemRow.findViewById(R.id.editTextTo);
-            EditText remarksEditText = itemRow.findViewById(R.id.editTextRemarks);
+        // Use currentItems list directly
+        newRequest.items = new ArrayList<>(currentItems); // Create a new list to avoid modifying the original
+        newRequest.status = "Pending"; // Set the status to Pending
 
-            // Basic validation for dynamically added items
-            if (qtyEditText.getText().toString().trim().isEmpty() ||
-                    descriptionEditText.getText().toString().trim().isEmpty() ||
-                    dateOfTransferEditText.getText().toString().trim().isEmpty() ||
-                    locationFromEditText.getText().toString().trim().isEmpty() ||
-                    locationToEditText.getText().toString().trim().isEmpty() ||
-                    remarksEditText.getText().toString().trim().isEmpty()) {
-                Toast.makeText(this, "Please fill all fields for item " + (i + 1), Toast.LENGTH_SHORT).show();
-                return; // Stop submission if any item field is empty
-            }
+        // Get existing requests, add the new one, and save the updated list
+        List<BorrowRequest> allRequests = loadAllRequests();
+        allRequests.add(newRequest);
+        saveAllRequests(allRequests);
 
-            try {
-                int qty = Integer.parseInt(qtyEditText.getText().toString().trim());
-                items.add(new BorrowRequest.Item(
-                        qty,
-                        descriptionEditText.getText().toString().trim(),
-                        dateOfTransferEditText.getText().toString().trim(),
-                        locationFromEditText.getText().toString().trim(),
-                        locationToEditText.getText().toString().trim(),
-                        remarksEditText.getText().toString().trim()
-                ));
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Invalid quantity for item " + (i + 1), Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
-        newRequest.items = items;
+        Toast.makeText(this, getString(R.string.form_submitted_saved), Toast.LENGTH_LONG).show();
 
+        // Clear the form after submission
+        clearForm();
 
-        // Save or send the newRequest object
-        saveRequestData(newRequest); // Example: save to SharedPreferences
-        Toast.makeText(this, "Form Submitted and Saved!", Toast.LENGTH_LONG).show();
-
-        // Optionally, navigate away or clear form after submission
-        // finish();
+        // Navigate to PendingActivity to see the submitted request
+        Intent pendingIntent = new Intent(TransferFormActivity.this, PendingActivity.class);
+        startActivity(pendingIntent);
+        finish(); // Finish this activity so user doesn't come back to a filled form
     }
 
     private boolean validateForm() {
-        // Validate main fields
-        if (showTextDateToday.getText().toString().trim().isEmpty() ||
+        if (textViewDateToday.getText().toString().trim().isEmpty() ||
                 editTextDepartment.getText().toString().trim().isEmpty() ||
                 editTextBorrowerName.getText().toString().trim().isEmpty() ||
-                showTextGender.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Please fill in all general information fields", Toast.LENGTH_SHORT).show();
+                textViewGender.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, getString(R.string.fill_general_info), Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        // Validate "Others" checkbox with text field
         if (checkBoxOthers.isChecked() && editTextOthersSpecify.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Please specify details for 'Others'", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.specify_others_details), Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        // Validate at least one item row exists and its fields are filled
-        if (itemsContainer.getChildCount() == 0) {
-            Toast.makeText(this, "Please add at least one item row", Toast.LENGTH_SHORT).show();
+        if (currentItems.isEmpty()) { // Check the list, not the container child count directly
+            Toast.makeText(this, getString(R.string.add_at_least_one_item), Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        // Iterate through each dynamically added item row for validation
-        for (int i = 0; i < itemsContainer.getChildCount(); i++) {
-            View itemRow = itemsContainer.getChildAt(i);
-            EditText qtyEditText = itemRow.findViewById(R.id.editTextQty);
-            EditText descriptionEditText = itemRow.findViewById(R.id.editTextDescription);
-            EditText dateOfTransferEditText = itemRow.findViewById(R.id.editTextDateOfTransfer);
-            EditText locationFromEditText = itemRow.findViewById(R.id.editTextFrom);
-            EditText locationToEditText = itemRow.findViewById(R.id.editTextTo);
-            EditText remarksEditText = itemRow.findViewById(R.id.editTextRemarks);
-
-            if (qtyEditText.getText().toString().trim().isEmpty() ||
-                    descriptionEditText.getText().toString().trim().isEmpty() ||
-                    dateOfTransferEditText.getText().toString().trim().isEmpty() ||
-                    locationFromEditText.getText().toString().trim().isEmpty() ||
-                    locationToEditText.getText().toString().trim().isEmpty() ||
-                    remarksEditText.getText().toString().trim().isEmpty()) {
-                Toast.makeText(this, "Please fill all fields for item " + (i + 1), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            try {
-                Integer.parseInt(qtyEditText.getText().toString().trim());
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Invalid quantity for item " + (i + 1), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
+        // Item validation is mostly handled by the dialog, so we can simplify this.
+        // If an item is added via dialog, it's already validated for non-empty fields.
         return true;
     }
-
 
     private void openDatePicker(final TextView targetView) {
         final Calendar c = Calendar.getInstance();
@@ -342,17 +356,18 @@ public class TransferFormActivity extends AppCompatActivity {
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog dialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
-            String formatted = String.format("%d-%02d-%02d", selectedYear, (selectedMonth + 1), selectedDay);
+            String formatted = String.format(Locale.getDefault(), "%d-%02d-%02d", selectedYear, (selectedMonth + 1), selectedDay);
             targetView.setText(formatted);
         }, year, month, day);
         dialog.show();
     }
 
     private void openGenderPicker(final TextView targetView) {
-        String[] genders = {"Male", "Female"};
+        // Use string array from resources
+        String[] genders = getResources().getStringArray(R.array.genders_array); // Assuming you have genders_array in strings.xml
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Gender");
+        builder.setTitle(getString(R.string.select_gender));
         builder.setItems(genders, (dialog, which) -> targetView.setText(genders[which]));
         builder.show();
     }
@@ -360,15 +375,64 @@ public class TransferFormActivity extends AppCompatActivity {
     private void performLogout() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Clear all data
+        editor.clear();
         editor.apply();
 
-        // Assuming MainActivity is your login activity
-        Intent loginIntent = new Intent(TransferFormActivity.this, MainActivity.class); // Use TransferFormActivity.this
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear activity stack
+        Intent loginIntent = new Intent(TransferFormActivity.this, MainActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(loginIntent);
-        finish(); // Finish the current activity
-        Toast.makeText(this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
+        finish();
+        Toast.makeText(this, getString(R.string.logged_out_successfully), Toast.LENGTH_SHORT).show();
+    }
+
+    // New method to load ALL requests from SharedPreferences
+    private List<BorrowRequest> loadAllRequests() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(REQUESTS_KEY, null);
+        Type type = new TypeToken<ArrayList<BorrowRequest>>() {}.getType();
+        List<BorrowRequest> requests = gson.fromJson(json, type);
+        if (requests == null) {
+            requests = new ArrayList<>();
+        }
+        return requests;
+    }
+
+    // New method to save ALL requests to SharedPreferences
+    private void saveAllRequests(List<BorrowRequest> requests) {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(requests);
+        editor.putString(REQUESTS_KEY, json);
+        editor.apply();
+    }
+
+    // New method to clear the form fields and reset state
+    private void clearForm() {
+        textViewDateToday.setText("");
+        editTextDepartment.setText("");
+        editTextBorrowerName.setText("");
+        textViewGender.setText("");
+
+        checkBoxTransfer.setChecked(false);
+        checkBoxPullOut.setChecked(false);
+        checkBoxOfficeTables.setChecked(false);
+        checkBoxFilingCabinets.setChecked(false);
+        checkBoxOthers.setChecked(false);
+        editTextOthersSpecify.setText("");
+        editTextOthersSpecify.setVisibility(View.GONE);
+
+        itemsContainer.removeAllViews(); // Remove all dynamically added item summary rows
+        currentItems.clear(); // Clear the list of items
+
+        // Reset to default values for convenience
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        textViewDateToday.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day));
+        textViewGender.setText("Male");
     }
 
     // --- Helper classes (You need to define these if they don't exist) ---
@@ -377,6 +441,7 @@ public class TransferFormActivity extends AppCompatActivity {
 
     // Example BorrowRequest class to hold form data
     public static class BorrowRequest implements java.io.Serializable {
+        public String requestId; // Unique ID for each request
         public String date1;
         public String department;
         public String borrowerName;
@@ -388,19 +453,21 @@ public class TransferFormActivity extends AppCompatActivity {
         public boolean isOthers;
         public String othersSpecify;
         public List<Item> items; // List to hold multiple items
+        public String status; // e.g., "Pending", "Approved", "Rejected"
 
         public BorrowRequest() {
             items = new ArrayList<>();
+            this.status = "Pending"; // Default status for new requests
         }
 
         // Inner class for an item
         public static class Item implements java.io.Serializable {
-            public int qty;
+            public int qty; // Changed to int based on NumberPicker
             public String description;
             public String dateOfTransfer;
             public String locationFrom;
             public String locationTo;
-            public String remarks;
+            public String remarks; // Added remarks
 
             public Item(int qty, String description, String dateOfTransfer, String locationFrom, String locationTo, String remarks) {
                 this.qty = qty;
@@ -411,15 +478,5 @@ public class TransferFormActivity extends AppCompatActivity {
                 this.remarks = remarks;
             }
         }
-    }
-
-    // Example method to save request data (e.g., to SharedPreferences)
-    private void saveRequestData(BorrowRequest request) {
-        SharedPreferences prefs = getSharedPreferences("permit_data", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(request);
-        editor.putString("request_json", json);
-        editor.apply();
     }
 }

@@ -1,3 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Group Project</string>
+    <string name="app_name">GroupProject</string>
+    <string name="no_request_data_available">No request data available.</string>
+    <string name="please_fill_all_item_fields_dialog">Please fill all item fields in the dialog.</string>
+    <string name="invalid_quantity">Invalid quantity.</string>
+    <string name="item_added">Item added!</string>
+    <string name="item_removed">Item removed.</string>
+    <string name="form_submitted_saved">Form Submitted and Saved!</string>
+    <string name="fill_general_info">Please fill in all general information fields.</string>
+    <string name="specify_others_details">Please specify details for Others.</string>
+    <string name="add_at_least_one_item">Please add at least one item.</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="logged_out_successfully">Logged out successfully!</string>
+
+    <string-array name="genders_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Prefer not to say</item>
+    </string-array>
 </resources>

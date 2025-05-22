@@ -2,6 +2,7 @@ package com.example.groupproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,36 +27,38 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToApproveListActivity extends AppCompatActivity { // Using your class name
+public class PendingActivity extends AppCompatActivity {
 
-    private static final String TAG = "ToApproveListActivity";
+    private static final String TAG = "PendingActivity";
     private static final String BASE_URL = "http://10.0.2.2/borrow_api/";
 
     private LinearLayout requestsContainer;
     private TextView noRequestsText;
 
     private RequestQueue requestQueue;
+    private String currentBorrowerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_request_list); // Create this XML (similar to student one)
+        setContentView(R.layout.activity_student_request_list);
 
         requestsContainer = findViewById(R.id.requestsContainer);
         noRequestsText = findViewById(R.id.noRequestsText);
 
         requestQueue = Volley.newRequestQueue(this);
+        currentBorrowerId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        loadRequests("Pending"); // Always load "Pending" requests for admin approval
+        loadRequests("Pending");
     }
 
     private void loadRequests(String statusFilter) {
         requestsContainer.removeAllViews();
         noRequestsText.setVisibility(View.GONE);
-        noRequestsText.setText("Loading requests for approval...");
+        noRequestsText.setText("Loading pending requests...");
         noRequestsText.setVisibility(View.VISIBLE);
 
-        String url = BASE_URL + "get_requests.php?status=" + URLEncoder.encode(statusFilter);
+        String url = BASE_URL + "get_requests.php?status=" + URLEncoder.encode(statusFilter) + "&borrower_id=" + URLEncoder.encode(currentBorrowerId);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
@@ -77,7 +80,7 @@ public class ToApproveListActivity extends AppCompatActivity { // Using your cla
                                     addRequestSummaryToContainer(request);
                                 }
                             } else {
-                                noRequestsText.setText("No " + statusFilter.toLowerCase() + " requests to approve found.");
+                                noRequestsText.setText("No " + statusFilter.toLowerCase() + " requests found.");
                                 noRequestsText.setVisibility(View.VISIBLE);
                             }
                         } else {
@@ -99,7 +102,7 @@ public class ToApproveListActivity extends AppCompatActivity { // Using your cla
                     }
                     noRequestsText.setText("Network error. Could not load requests.");
                     noRequestsText.setVisibility(View.VISIBLE);
-                    Toast.makeText(ToApproveListActivity.this, "Network error.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PendingActivity.this, "Network error.", Toast.LENGTH_LONG).show();
                 });
 
         requestQueue.add(jsonObjectRequest);
@@ -113,14 +116,16 @@ public class ToApproveListActivity extends AppCompatActivity { // Using your cla
         TextView summaryStatus = requestSummaryView.findViewById(R.id.summaryStatus);
         TextView summaryDate = requestSummaryView.findViewById(R.id.summaryDate);
 
-        summaryTitle.setText("Project: " + request.projectName + " by " + request.borrowerName);
-        summaryStatus.setText("Status: " + request.status);
-        summaryDate.setText("Submitted: " + request.dateSubmitted); // Corrected to use dateSubmitted
+        // Corrected: Using getter methods for private fields
+        summaryTitle.setText("Project: " + request.getProjectName() + " by " + request.getBorrowerName());
+        summaryStatus.setText("Status: " + request.getStatus());
+        summaryDate.setText("Submitted: " + request.getDateSubmitted());
 
         // Set status color
-        if ("Approved".equals(request.status)) {
+        // Corrected: Using getter methods
+        if ("Approved".equals(request.getStatus())) {
             summaryStatus.setTextColor(getResources().getColor(R.color.green));
-        } else if ("Rejected".equals(request.status)) {
+        } else if ("Rejected".equals(request.getStatus())) {
             summaryStatus.setTextColor(getResources().getColor(R.color.red));
         } else { // Pending
             summaryStatus.setTextColor(getResources().getColor(R.color.orange));
@@ -128,8 +133,9 @@ public class ToApproveListActivity extends AppCompatActivity { // Using your cla
 
 
         requestSummaryView.setOnClickListener(v -> {
-            Intent intent = new Intent(ToApproveListActivity.this, ApproveActivity.class); // Go to your ApproveActivity
-            intent.putExtra("request_id", request.requestId);
+            Intent intent = new Intent(PendingActivity.this, DetailActivity.class);
+            // Corrected: Using getter methods
+            intent.putExtra("request_id", request.getRequestId());
             startActivity(intent);
         });
 
@@ -139,6 +145,6 @@ public class ToApproveListActivity extends AppCompatActivity { // Using your cla
     @Override
     protected void onResume() {
         super.onResume();
-        loadRequests("Pending"); // Refresh data when returning to this activity
+        loadRequests("Pending");
     }
 }

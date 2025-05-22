@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/gradient_background"> <TextView
+    android:id="@+id/detailTextViewQty"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="14sp"
+    android:textColor="@color/black"
+    android:textStyle="bold"
+    android:text="Quantity: "/>
+
+    <TextView
+        android:id="@+id/detailTextViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="Description: "/>
+
+    <TextView
+        android:id="@+id/detailTextViewDateOfTransfer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="Date of Transfer: "/>
+
+    <TextView
+        android:id="@+id/detailTextViewLocationFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="From: "/>
+
+    <TextView
+        android:id="@+id/detailTextViewLocationTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="To: "/>
+
+</LinearLayout>

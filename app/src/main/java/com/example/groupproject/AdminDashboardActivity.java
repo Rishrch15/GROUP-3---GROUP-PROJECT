@@ -25,7 +25,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Intent to the "To Approve" list activity
-                Intent intent = new Intent(AdminDashboardActivity.this, ToApproveListActivity.class);
+                Intent intent = new Intent(AdminDashboardActivity.this, ApproveActivity.class);
                 startActivity(intent);
                 Toast.makeText(AdminDashboardActivity.this, "Opening To Approve List", Toast.LENGTH_SHORT).show();
             }
@@ -35,7 +35,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Intent to the "Approved" list activity
-                Intent intent = new Intent(AdminDashboardActivity.this, ApprovedListActivity.class);
+                Intent intent = new Intent(AdminDashboardActivity.this, AdminApprovedListActivity.class);
                 startActivity(intent);
                 Toast.makeText(AdminDashboardActivity.this, "Opening Approved List", Toast.LENGTH_SHORT).show();
             }
