@@ -2,106 +2,106 @@ package com.example.groupproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import com.android.volley.*;
+import com.android.volley.toolbox.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Register extends AppCompatActivity {
     private EditText etName, etEmail, etPassword, etReenterPassword;
-    private TextView tvStatus;
     private Button btnRegister;
-    private RadioGroup radioGroupGender; // Changed to radioGroupGender
-    private RadioButton radioMale, radioFemale; // Added for gender selection
-    private String name, email, password, reenterPassword, gender; // Added gender variable
+    private RadioGroup radioGroupGender;
+    private RadioButton radioMale, radioFemale;
+    private static final String URL = "http://192.168.254.149/Epermit/register.php";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register); // Make sure this corresponds to your layout file name
+        setContentView(R.layout.register);
 
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etReenterPassword = findViewById(R.id.etReenterPassword);
-        tvStatus = findViewById(R.id.tvStatus);
         btnRegister = findViewById(R.id.btnRegister);
-
-        // Initialize RadioGroup and RadioButtons for Gender
         radioGroupGender = findViewById(R.id.radioGroupGender);
         radioMale = findViewById(R.id.radioMale);
         radioFemale = findViewById(R.id.radioFemale);
-
-        // Initialize string variables (optional, as they'll be updated on button click)
-        name = "";
-        email = "";
-        password = "";
-        reenterPassword = "";
-        gender = "";
-
-        // Set the OnClickListener for the Register button
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save(view); // Call the save method when the button is clicked
-            }
-        });
-
-        // You might want to set a default gender selection
-        radioMale.setChecked(true); // Default to Male
+        radioMale.setChecked(true);
+        btnRegister.setOnClickListener(view -> registerUser());
     }
+    private void registerUser() {
+        String name = etName.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String rePassword = etReenterPassword.getText().toString().trim();
 
-    public void save(View view) {
-        name = etName.getText().toString().trim();
-        email = etEmail.getText().toString().trim();
-        password = etPassword.getText().toString().trim();
-        reenterPassword = etReenterPassword.getText().toString().trim();
-
-        // Get selected gender
         int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();
-        if (selectedGenderId == R.id.radioMale) {
-            gender = "Male";
-        } else if (selectedGenderId == R.id.radioFemale) {
-            gender = "Female";
-        } else {
-            // This case should ideally not happen if a default is set, but good for robust error handling
-            Toast.makeText(this, "Please select your gender.", Toast.LENGTH_SHORT).show();
+        String gender = (selectedGenderId == R.id.radioMale) ? "Male" : "Female";
+
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || rePassword.isEmpty()) {
+            Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Basic client-side validation
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || reenterPassword.isEmpty()) {
-            Toast.makeText(this, "All fields cannot be empty!", Toast.LENGTH_SHORT).show();
-        } else if (!password.equals(reenterPassword)) {
-            Toast.makeText(this, "Password Mismatch! Please re-enter your password correctly.", Toast.LENGTH_SHORT).show();
-        } else if (password.length() < 6) { // Example: Minimum password length
-            Toast.makeText(this, "Password must be at least 6 characters long.", Toast.LENGTH_SHORT).show();
+        if (!password.equals(rePassword)) {
+            Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+            return;
         }
-        else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
-        }
-        else {
 
-            tvStatus.setText("Successfully registered as " + name + " (Gender: " + gender + ").");
-            Toast.makeText(this, "Registration successful!", Toast.LENGTH_LONG).show();
+        StringRequest request = new StringRequest(Request.Method.POST, URL, response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                Toast.makeText(this, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                if (obj.getBoolean("success")) {
+                    startActivity(new Intent(Register.this, MainActivity.class));
+                    finish();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "JSON parsing error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, error -> {
+            if (error instanceof NoConnectionError) {
+                Toast.makeText(this, "Error: No internet connection or server is down.", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(this, "Error: Request timed out.", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(this, "Error: Authentication failure.", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(this, "Error: Server responded with an error.", Toast.LENGTH_LONG).show();
+                if (error.networkResponse != null && error.networkResponse.data != null) {
+                    String serverError = new String(error.networkResponse.data);
+                    Toast.makeText(this, "Server Error: " + serverError, Toast.LENGTH_LONG).show();
+                }
+            } else if (error instanceof NetworkError) {
+                Toast.makeText(this, "Error: Network issue.", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(this, "Error: Response parsing failed.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Login error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            error.printStackTrace();
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", name);
+                params.put("email", email);
+                params.put("password", password);
+                params.put("gender", gender);
+                return params;
+            }
+        };
 
-            // Simulate navigation to MainActivity (Login Screen) after successful registration
-            Intent intent = new Intent(Register.this, MainActivity.class);
-            //
-            startActivity(intent);
-            finish(); // Finish Register activity so user can't go back to it with back button
-        }
-    }
-
-    public void login(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish(); // Finish Register activity to prevent going back
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(this).add(request);
     }
 }
