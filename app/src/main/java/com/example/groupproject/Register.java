@@ -16,7 +16,7 @@ public class Register extends AppCompatActivity {
     private Button btnRegister;
     private RadioGroup radioGroupGender;
     private RadioButton radioMale, radioFemale;
-    private static final String URL = "http://192.168.254.149/Epermit/register.php";
+    private static final String URL = "http://192.168.185.26/E-permit/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

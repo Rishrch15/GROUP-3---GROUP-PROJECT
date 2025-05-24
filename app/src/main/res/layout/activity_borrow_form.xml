@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_blue_to_white">
+    android:background="#060e33">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Permit To Borrow"
+                android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -61,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="Department/Office:"
                 android:textSize="16sp"
+                android:textColor="#FFFFFF"
                 android:layout_marginBottom="4dp"/>
             <EditText
                 android:id="@+id/editTextDepartment"
@@ -76,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name of borrower:"
                 android:textSize="16sp"
+                android:textColor="#FFFFFF"
                 android:layout_marginBottom="4dp"/>
             <EditText
                 android:id="@+id/editTextBorrowerName"
@@ -117,6 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:textColor="#FFFFFF"
                 android:text="Sir/Madam, I would like to borrow the following items for:"
                 android:textSize="16sp" />
 
@@ -124,6 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name of Project:"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_marginBottom="4dp"/>
             <EditText
@@ -181,11 +186,12 @@
                 <TextView
                     android:id="@+id/showText3"
                     android:layout_width="0dp"
+
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="8dp"
                     android:background="@drawable/rounded_edittext"
-                    android:textColor="@color/black"
+                    android:textColor="#FFFFFF"
                     android:gravity="center_vertical" />
             </LinearLayout>
 
@@ -193,6 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Venue:"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_marginBottom="4dp"/>
             <EditText
@@ -216,6 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Qty."
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:gravity="center"/>
 
@@ -223,6 +231,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    android:textColor="#FFFFFF"
                     android:text="Description"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -231,6 +240,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:textColor="#FFFFFF"
                     android:text="Date of Transfer"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -240,6 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="From"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:gravity="center"/>
 
@@ -248,6 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="To"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:gravity="center"/>
 

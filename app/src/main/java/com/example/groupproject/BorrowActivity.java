@@ -1,5 +1,7 @@
 package com.example.groupproject;
 
+import static com.example.groupproject.PendingActivity.BASE_URL;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -41,18 +43,18 @@ import java.util.Locale;
 public class BorrowActivity extends AppCompatActivity {
 
     private static final String TAG = "BorrowActivity";
-    private static final String BASE_URL = "http://10.0.2.2/borrow_api/";
+    public static final String URL = "http://192.168.185.26/E-permit/request.php";
 
     // Declare UI elements as class members
     TextView textDate, textDate2, text3, text4;
     EditText editDept, editName, editProject, editVenue;
     LinearLayout itemsContainer;
     Button addItemBtn, submitBtn, button, button2, button3, button4;
-    private BottomNavigationView bottomNavigationView; // Declared here
+    public BottomNavigationView bottomNavigationView; // Declared here
 
-    private List<BorrowRequest.Item> currentItems = new ArrayList<>();
-    private RequestQueue requestQueue;
-    private String deviceId;
+    public List<BorrowRequest.Item> currentItems = new ArrayList<>();
+    public RequestQueue requestQueue;
+    public String deviceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +138,7 @@ public class BorrowActivity extends AppCompatActivity {
         });
     }
 
-    private void showAddItemDialog() {
+    public void showAddItemDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         // Ensure dialog_add_item.xml exists and has the correct IDs
@@ -202,7 +204,7 @@ public class BorrowActivity extends AppCompatActivity {
         });
     }
 
-    private void addItemSummaryRow(BorrowRequest.Item item) {
+    public void addItemSummaryRow(BorrowRequest.Item item) {
         // Ensure item_summary_row.xml exists and has the correct IDs
         LinearLayout row = (LinearLayout) LayoutInflater.from(this)
                 .inflate(R.layout.item_summary_row, itemsContainer, false);
@@ -229,7 +231,7 @@ public class BorrowActivity extends AppCompatActivity {
         itemsContainer.addView(row);
     }
 
-    private void submitBorrowRequest() {
+    public void submitBorrowRequest() {
         if (deviceId == null || deviceId.isEmpty()) {
             Toast.makeText(this, "Device ID not available. Cannot submit request.", Toast.LENGTH_SHORT).show();
             return;
@@ -283,7 +285,7 @@ public class BorrowActivity extends AppCompatActivity {
             return;
         }
 
-        String url = BASE_URL + "add_request.php"; // Ensure this URL is correct for your API endpoint
+        String url = BASE_URL + "192.168.185.26/E-permit/submit.php"; // Ensure this URL is correct for your API endpoint
 
         // Create and add the JSON object request to the Volley queue
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestJsonObject,
