@@ -19,20 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.NumberPicker;
-
-import androidx.annotation.NonNull; // Added for BottomNavigationView
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.bottomnavigation.BottomNavigationView; // Added for BottomNavigationView
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -41,7 +37,7 @@ import java.util.Locale;
 public class BorrowActivity extends AppCompatActivity {
 
     private static final String TAG = "BorrowActivity";
-    private static final String BASE_URL = "http://10.0.2.2/borrow_api/";
+    private static final String BASE_URL = "http://192.168.254.149/Epermit/update_request_status.php";
 
     // Declare UI elements as class members
     TextView textDate, textDate2, text3, text4;
@@ -60,12 +56,9 @@ public class BorrowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_borrow_form); // Make sure this XML layout name is correct
 
         requestQueue = Volley.newRequestQueue(this);
-
-        // Get device ID
         deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.d(TAG, "Device ID: " + deviceId);
 
-        // Initialize UI elements
         textDate = findViewById(R.id.showText); // Assuming showText for date submitted
         button = findViewById(R.id.dateButton); // Button for date submitted
         editDept = findViewById(R.id.editTextDepartment);
@@ -135,7 +128,6 @@ public class BorrowActivity extends AppCompatActivity {
             }
         });
     }
-
     private void showAddItemDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();

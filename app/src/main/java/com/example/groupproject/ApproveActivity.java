@@ -9,23 +9,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class ApproveActivity extends AppCompatActivity { // Using your class name
 
     private static final String TAG = "ApproveActivity";
-    private static final String BASE_URL = "http://10.0.2.2/borrow_api/"; // Your WampServer IP
+    private static final String BASE_URL = "http://192.168.254.149/Epermit/update_request_status.php"; // Your WampServer IP
 
     private TextView tvDateSubmitted, tvDepartment, tvBorrowerName, tvGender, tvProjectName,
             tvDateOfProject, tvTimeOfProject, tvVenue, tvStatus, tvApprovedBy;

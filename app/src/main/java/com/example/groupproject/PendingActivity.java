@@ -30,7 +30,7 @@ import java.util.List;
 public class PendingActivity extends AppCompatActivity {
 
     private static final String TAG = "PendingActivity";
-    private static final String BASE_URL = "http://10.0.2.2/borrow_api/";
+    private static final String BASE_URL = "http://192.168.254.149/Epermit/get_requests.php/";
 
     private LinearLayout requestsContainer;
     private TextView noRequestsText;

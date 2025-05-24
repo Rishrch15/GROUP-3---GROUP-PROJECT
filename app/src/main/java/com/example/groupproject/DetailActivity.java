@@ -8,21 +8,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailActivity";
-    private static final String BASE_URL = "http://10.0.2.2/borrow_api/";
-
+    private static final String BASE_URL = "http://192.168.254.149/Epermit/get_request_details.php";
     private TextView tvDateSubmitted, tvDepartment, tvBorrowerName, tvGender, tvProjectName,
             tvDateOfProject, tvTimeOfProject, tvVenue, tvStatus, tvApprovedBy;
     private LinearLayout itemsDetailContainer;
@@ -36,7 +33,6 @@ public class DetailActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        // Initialize TextViews
         tvDateSubmitted = findViewById(R.id.tvDateSubmitted);
         tvDepartment = findViewById(R.id.tvDepartment);
         tvBorrowerName = findViewById(R.id.tvBorrowerName);
@@ -110,7 +106,6 @@ public class DetailActivity extends AppCompatActivity {
         tvVenue.setText("Venue: " + request.getVenue());
         tvStatus.setText("Status: " + request.getStatus());
 
-        // Corrected: Using getter methods
         if (request.getApprovedBy() != null && !request.getApprovedBy().isEmpty()) {
             tvApprovedBy.setText("Approved By: " + request.getApprovedBy());
             tvApprovedBy.setVisibility(View.VISIBLE);
@@ -118,9 +113,7 @@ public class DetailActivity extends AppCompatActivity {
             tvApprovedBy.setVisibility(View.GONE);
         }
 
-        // Clear existing items and add new ones
         itemsDetailContainer.removeAllViews();
-        // Corrected: Using getter methods
         if (request.getItems() != null && !request.getItems().isEmpty()) {
             for (BorrowRequest.Item item : request.getItems()) {
                 addItemDetailRow(item);
@@ -132,13 +125,11 @@ public class DetailActivity extends AppCompatActivity {
             itemsDetailContainer.addView(noItemsText);
         }
 
-        // Set status color
-        // Corrected: Using getter methods
         if ("Approved".equals(request.getStatus())) {
             tvStatus.setTextColor(getResources().getColor(R.color.green));
         } else if ("Rejected".equals(request.getStatus())) {
             tvStatus.setTextColor(getResources().getColor(R.color.red));
-        } else { // Pending
+        } else {
             tvStatus.setTextColor(getResources().getColor(R.color.orange));
         }
     }
@@ -153,7 +144,6 @@ public class DetailActivity extends AppCompatActivity {
         TextView detailLocationFrom = itemRow.findViewById(R.id.detailTextViewLocationFrom);
         TextView detailLocationTo = itemRow.findViewById(R.id.detailTextViewLocationTo);
 
-        // Corrected: Using getter methods for Item class
         detailQty.setText("Quantity: " + item.getQty());
         detailDescription.setText("Description: " + item.getDescription());
         detailDateOfTransfer.setText("Date of Transfer: " + item.getDateOfTransfer());
