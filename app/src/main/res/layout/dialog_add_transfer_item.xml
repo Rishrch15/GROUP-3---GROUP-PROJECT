@@ -64,16 +64,7 @@
                 android:text="Date of Transfer:"
                 android:textSize="16sp"
                 android:layout_marginEnd="8dp"/>
-            <TextView
-                android:id="@+id/dialogTextViewDateOfTransfer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Select Date"
-                android:padding="8dp"
-                android:background="@drawable/rounded_edittext"
-                android:clickable="true"
-                android:focusable="false"/>
+
             <Button
                 android:id="@+id/dialogButtonDateOfTransfer"
                 android:layout_width="wrap_content"
@@ -83,6 +74,17 @@
                 android:textColor="#FFFFFF"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/dialogTextViewDateOfTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_edittext"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="Select Date"
+            android:padding="8dp" />
 
         <TextView
             android:layout_width="wrap_content"

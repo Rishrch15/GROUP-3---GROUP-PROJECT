@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private RadioGroup radioGroup;
     private RadioButton radioAdmin, radioStudent;
-    private static final String URL = "http://192.168.254.149/Epermit/login.php";
+    private static final String URL = "http://192.168.185.26/E-permit/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

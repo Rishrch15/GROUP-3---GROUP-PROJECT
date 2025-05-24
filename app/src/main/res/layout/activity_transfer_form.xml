@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ice_blue_white_background">
+    android:background="#060e33">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Permit To Transfer"
+                android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -58,6 +59,7 @@
             </LinearLayout>
 
             <TextView
+                android:textColor="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Department/Office:"
@@ -77,6 +79,8 @@
                 android:ems="10"/>
 
             <TextView
+                android:textColor="#FFFFFF"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name of borrower:"
@@ -125,20 +129,22 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/textViewRequestIntro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="I would like to request for the following items:"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <TextView
+                android:textColor="#FFFFFF"
                 android:id="@+id/textViewSirMadam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sir/Madam:"
                 android:layout_marginTop="8dp"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:id="@+id/textViewRequestIntro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="I would like to request for the following items:"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:textSize="16sp"/>
 
             <LinearLayout
@@ -151,21 +157,26 @@
                     android:id="@+id/checkBoxTransfer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
                     android:text="Transfer / Relocation" />
                 <CheckBox
                     android:id="@+id/checkBoxPullOut"
                     android:layout_width="wrap_content"
+                    android:textColor="#FFFFFF"
                     android:layout_height="wrap_content"
                     android:text="Pull-out / Return" />
                 <CheckBox
                     android:id="@+id/checkBoxOfficeTables"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+
                     android:text="Office tables/Chairs" />
                 <CheckBox
                     android:id="@+id/checkBoxFilingCabinets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
                     android:text="Filing Cabinets/Shelves" />
 
                 <LinearLayout
@@ -174,6 +185,7 @@
                     android:orientation="horizontal">
 
                     <CheckBox
+                        android:textColor="#FFFFFF"
                         android:id="@+id/checkBoxOthers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -185,11 +197,11 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:hint="Specify"
+                        android:textColor="#FFFFFF"
                         android:inputType="text"
                         android:background="@drawable/rounded_edittext"
                         android:padding="8dp"
                         android:layout_marginStart="8dp"
-                        android:textColor="@color/black"
                         android:visibility="gone"
                         android:ems="10"/>
                 </LinearLayout>
@@ -207,6 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Qty."
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:gravity="center"/>
                 <TextView
@@ -214,6 +227,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="Description"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:gravity="center"/>
                 <TextView
@@ -222,12 +236,14 @@
                     android:layout_weight="2"
                     android:text="Date of Transfer"
                     android:textStyle="bold"
+                    android:textColor="#FFFFFF"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="From"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:gravity="center"/>
                 <TextView
@@ -235,6 +251,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="To"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:gravity="center"/>
 

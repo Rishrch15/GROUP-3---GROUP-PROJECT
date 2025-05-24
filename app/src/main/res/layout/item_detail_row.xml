@@ -8,7 +8,9 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:layout_marginBottom="4dp"
-    android:background="@drawable/gradient_background"> <TextView
+    android:background="@drawable/gradient_background">
+
+    <TextView
     android:id="@+id/detailTextViewQty"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
