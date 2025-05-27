@@ -107,9 +107,10 @@ public class Register extends AppCompatActivity {
                 JSONObject obj = new JSONObject(response);
                 Toast.makeText(this, obj.getString("message"), Toast.LENGTH_SHORT).show();
                 if (obj.getBoolean("success")) {
-                    startActivity(new Intent(Register.this, MainActivity.class));
-                    finish();
-                }
+                    sendOtpToEmail(email); // Call this function to trigger OTP
+
+
+            }
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "JSON parsing error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -153,4 +154,40 @@ public class Register extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(this).add(request);
     }
+
+    private void sendOtpToEmail(String email) {
+        String OTP_URL = "http://192.168.0.105/EPermit/send_otp.php";
+
+        StringRequest otpRequest = new StringRequest(Request.Method.POST, OTP_URL,
+                response -> {
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        if (obj.getString("status").equals("success")) {
+                            Toast.makeText(this, "OTP sent to your email", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(Register.this, OtpActivity.class);
+                            intent.putExtra("email", email); // pass email for verification
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(this, "Failed to send OTP: " + obj.getString("message"), Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "OTP error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                },
+                error -> Toast.makeText(this, "OTP network error: " + error.getMessage(), Toast.LENGTH_LONG).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(otpRequest);
+    }
+
 }
