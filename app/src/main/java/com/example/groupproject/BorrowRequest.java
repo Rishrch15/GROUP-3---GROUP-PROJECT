@@ -3,26 +3,25 @@ package com.example.groupproject;
 import java.util.List;
 
 public class BorrowRequest {
-    // Main form fields (sent by client for new requests) - Standardized to camelCase
-    public String dateSubmitted;
-    public String department;
-    public String borrowerName;
-    public String gender;
-    public String borrowerId; // Using deviceId as a placeholder for borrowerId
-    public String projectName;
-    public String dateOfProject;
-    public String timeOfProject;
-    public String venue;
+    // Main form fields
+    private String dateSubmitted;
+    private String department;
+    private String borrowerName;
+    private String gender;
+    private String borrowerId;
+    private String projectName;
+    private String dateOfProject;
+    private String timeOfProject;
+    private String venue;
+    private String status;
 
-    // Fields usually managed by the server or updated after submission
-    public String status;      // e.g., "Pending", "Approved", "Rejected"
-    public String approvedBy; // New field for the person who approved it
-    public int requestId;     // New field for the ID from the database
+    // Optional field (only include if your database has this column)
+    private String approvedBy;
 
+    private int requestId;
     private List<Item> items;
 
-    // Constructor for creating a NEW request (client-side submission)
-    // This matches the 10 String + 1 List<Item> expected by BorrowActivity
+    // Constructor for new requests (without approvedBy)
     public BorrowRequest(String dateSubmitted, String department, String borrowerName,
                          String gender, String borrowerId, String projectName,
                          String dateOfProject, String timeOfProject, String venue,
@@ -38,31 +37,41 @@ public class BorrowRequest {
         this.venue = venue;
         this.status = status;
         this.items = items;
-        // requestId and approvedBy are not set here as they come from the server response
     }
 
-    // Constructor for receiving a request (e.g., from server API, where ID and approval might be present)
-    // This constructor should be used by Gson when deserializing JSON from the server.
-    // Ensure all fields that might come from the server are included here.
-    public BorrowRequest(int requestId, String dateSubmitted, String department, String borrowerName,
-                         String gender, String borrowerId, String projectName,
-                         String dateOfProject, String timeOfProject, String venue,
-                         String status, String approvedBy, List<Item> items) {
-        // Call the other constructor for common fields
+    // Constructor for server responses (with all fields)
+    public BorrowRequest(int requestId, String dateSubmitted, String department,
+                         String borrowerName, String gender, String borrowerId,
+                         String projectName, String dateOfProject, String timeOfProject,
+                         String venue, String status, String approvedBy, List<Item> items) {
         this(dateSubmitted, department, borrowerName, gender, borrowerId, projectName,
                 dateOfProject, timeOfProject, venue, status, items);
         this.requestId = requestId;
         this.approvedBy = approvedBy;
     }
 
+    // Getters
+    public String getDateSubmitted() { return dateSubmitted; }
+    public String getDepartment() { return department; }
+    public String getBorrowerName() { return borrowerName; }
+    public String getGender() { return gender; }
+    public String getBorrowerId() { return borrowerId; }
+    public String getProjectName() { return projectName; }
+    public String getDateOfProject() { return dateOfProject; }
+    public String getTimeOfProject() { return timeOfProject; }
+    public String getVenue() { return venue; }
+    public String getStatus() { return status; }
+    public String getApprovedBy() { return approvedBy; } // Can be null if column doesn't exist
+    public int getRequestId() { return requestId; }
+    public List<Item> getItems() { return items; }
 
-    // Inner class for items (fields remain camelCase)
+    // Item class
     public static class Item {
-        public String qty;
-        public String description;
-        public String dateOfTransfer;
-        public String locationFrom;
-        public String locationTo;
+        private String qty;
+        private String description;
+        private String dateOfTransfer;
+        private String locationFrom;
+        private String locationTo;
 
         public Item(String qty, String description, String dateOfTransfer,
                     String locationFrom, String locationTo) {
@@ -73,77 +82,11 @@ public class BorrowRequest {
             this.locationTo = locationTo;
         }
 
-        // Getters for Item fields
+        // Getters
         public String getQty() { return qty; }
         public String getDescription() { return description; }
         public String getDateOfTransfer() { return dateOfTransfer; }
         public String getLocationFrom() { return locationFrom; }
         public String getLocationTo() { return locationTo; }
-    }
-
-    // --- Getters for BorrowRequest fields (all standardized to camelCase) ---
-    public String getDateSubmitted() {
-        return dateSubmitted;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public String getBorrowerName() {
-        return borrowerName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getBorrowerId() {
-        return borrowerId;
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public String getDateOfProject() {
-        return dateOfProject;
-    }
-
-    public String getTimeOfProject() {
-        return timeOfProject;
-    }
-
-    public String getVenue() {
-        return venue;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getApprovedBy() {
-        return approvedBy;
-    }
-
-    public int getRequestId() {
-        return requestId;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    // Optional: Setters if you need to modify fields after creation (e.g., updating status)
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setApprovedBy(String approvedBy) {
-        this.approvedBy = approvedBy;
-    }
-
-    public void setRequestId(int requestId) {
-        this.requestId = requestId;
     }
 }

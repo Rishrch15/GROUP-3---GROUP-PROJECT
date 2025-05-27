@@ -2,10 +2,25 @@ package com.example.groupproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.*;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView; // Import TextView
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.android.volley.*;
-import com.android.volley.toolbox.*;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -14,34 +29,68 @@ import java.util.Map;
 public class Register extends AppCompatActivity {
     private EditText etName, etEmail, etPassword, etReenterPassword;
     private Button btnRegister;
-    private RadioGroup radioGroupGender;
-    private RadioButton radioMale, radioFemale;
-    private static final String URL = "http://192.168.185.26/E-permit/register.php";
+    private Spinner spinnerGender;
+    private TextView tvLoginLink; // Declare TextView for the login link
+    private String selectedGender = "";
+
+    private static final String URL = "http://192.168.0.105/EPermit/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+        setContentView(R.layout.register); // Ensure your layout file is named 'register.xml'
 
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etReenterPassword = findViewById(R.id.etReenterPassword);
         btnRegister = findViewById(R.id.btnRegister);
-        radioGroupGender = findViewById(R.id.radioGroupGender);
-        radioMale = findViewById(R.id.radioMale);
-        radioFemale = findViewById(R.id.radioFemale);
-        radioMale.setChecked(true);
+        spinnerGender = findViewById(R.id.spinnerGender);
+        tvLoginLink = findViewById(R.id.tvLoginLink); // Initialize the TextView
+
+        // Populate the Spinner
+        String[] genderOptions = {"Select Gender", "Male", "Female", "Other"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                genderOptions
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerGender.setAdapter(adapter);
+
+        // Set an OnItemSelectedListener for the Spinner
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedGender = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedGender = "";
+            }
+        });
+
         btnRegister.setOnClickListener(view -> registerUser());
+
+        // Set an OnClickListener for the login link TextView
+        tvLoginLink.setOnClickListener(view -> {
+            // Start the MainActivity (assuming MainActivity is your login screen)
+            startActivity(new Intent(Register.this, MainActivity.class));
+            finish(); // Finish the current Register activity so user can't go back with back button
+        });
     }
+
     private void registerUser() {
         String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String rePassword = etReenterPassword.getText().toString().trim();
 
-        int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();
-        String gender = (selectedGenderId == R.id.radioMale) ? "Male" : "Female";
+        if (selectedGender.equals("Select Gender") || selectedGender.isEmpty()) {
+            Toast.makeText(this, "Please select your gender.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || rePassword.isEmpty()) {
             Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
@@ -93,7 +142,7 @@ public class Register extends AppCompatActivity {
                 params.put("name", name);
                 params.put("email", email);
                 params.put("password", password);
-                params.put("gender", gender);
+                params.put("gender", selectedGender);
                 return params;
             }
         };

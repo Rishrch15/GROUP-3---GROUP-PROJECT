@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_blue_to_white">
+    android:background="#060e33">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -19,22 +19,23 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:focusableInTouchMode="true">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Permit To Borrow"
+                android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:layout_marginBottom="50dp" />
+                android:layout_marginBottom="50dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
-
                 <Button
                     android:id="@+id/dateButton"
                     android:layout_width="wrap_content"
@@ -43,7 +44,6 @@
                     android:background="@drawable/button_rounded"
                     android:textColor="#FFFFFF"
                     android:layout_marginEnd="8dp"/>
-
                 <TextView
                     android:id="@+id/showText"
                     android:layout_width="0dp"
@@ -52,78 +52,29 @@
                     android:padding="8dp"
                     android:background="@drawable/rounded_edittext"
                     android:textColor="@color/black"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"/>
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Department/Office:"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/editTextDepartment"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:background="@drawable/rounded_edittext"
-                android:inputType="text"
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Name of borrower:"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
-            <EditText
-                android:id="@+id/editTextBorrowerName"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:background="@drawable/rounded_edittext"
-                android:inputType="text"
-                android:layout_marginBottom="16dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <Button
-                    android:id="@+id/genderButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gender"
-                    android:background="@drawable/button_rounded"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginEnd="8dp"/>
-
-                <TextView
-                    android:id="@+id/showText4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="8dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical" />
-            </LinearLayout>
+                android:gravity="center_vertical"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:textColor="#FFFFFF"
                 android:text="Sir/Madam, I would like to borrow the following items for:"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name of Project:"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_marginBottom="4dp"/>
             <EditText
@@ -133,7 +84,8 @@
                 android:padding="10dp"
                 android:inputType="text"
                 android:background="@drawable/rounded_edittext"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,16 +93,13 @@
                 android:layout_marginBottom="8dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
-
                 <Button
                     android:id="@+id/dateButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date of Project"
-                    android:background="@drawable/button_rounded"
+                    android:text="Year of Project" android:background="@drawable/button_rounded"
                     android:textColor="#FFFFFF"
                     android:layout_marginEnd="8dp"/>
-
                 <TextView
                     android:id="@+id/showText2"
                     android:layout_width="0dp"
@@ -159,7 +108,7 @@
                     android:padding="8dp"
                     android:background="@drawable/rounded_edittext"
                     android:textColor="@color/black"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"/>
             </LinearLayout>
 
             <LinearLayout
@@ -168,7 +117,6 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_vertical">
-
                 <Button
                     android:id="@+id/timeButton"
                     android:layout_width="wrap_content"
@@ -177,7 +125,6 @@
                     android:background="@drawable/button_rounded"
                     android:textColor="#FFFFFF"
                     android:layout_marginEnd="8dp"/>
-
                 <TextView
                     android:id="@+id/showText3"
                     android:layout_width="0dp"
@@ -186,13 +133,14 @@
                     android:padding="8dp"
                     android:background="@drawable/rounded_edittext"
                     android:textColor="@color/black"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"/>
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Venue:"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_marginBottom="4dp"/>
             <EditText
@@ -202,7 +150,8 @@
                 android:padding="10dp"
                 android:inputType="text"
                 android:background="@drawable/rounded_edittext"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -210,51 +159,12 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="16dp"
                 android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Qty."
-                    android:textStyle="bold"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Description"
-                    android:textStyle="bold"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Date of Transfer"
-                    android:textStyle="bold"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="From"
-                    android:textStyle="bold"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="To"
-                    android:textStyle="bold"
-                    android:gravity="center"/>
-
-                <View
-                    android:layout_width="24dp"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Qty." android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3" android:textColor="#FFFFFF" android:text="Description" android:textStyle="bold" android:gravity="center"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:textColor="#FFFFFF" android:text="Date of Transfer" android:textStyle="bold" android:gravity="center"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="From" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="To" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center"/>
+                <View android:layout_width="24dp" android:layout_height="wrap_content"/> </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/itemsContainer"
@@ -267,12 +177,12 @@
                 android:id="@+id/add_item_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ Add Item"
                 android:layout_gravity="end"
-                android:background="@drawable/button_rounded"
-                android:textColor="#FFFFFF"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_rounded"
+                android:text="+ Add Item"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/buttonSubmit"
@@ -294,6 +204,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_navigation_menu"/>
 
 </RelativeLayout>

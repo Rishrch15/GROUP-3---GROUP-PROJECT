@@ -58,75 +58,12 @@
                     android:focusable="false"/>
             </LinearLayout>
 
-            <TextView
-                android:textColor="#FFFFFF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Department/Office:"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
-
-            <EditText
-                android:id="@+id/editTextDepartment"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/rounded_edittext"
-                android:inputType="text"
-                android:hint="Enter Department"
-                android:textColor="@color/black"
-                android:ems="10"/>
-
-            <TextView
-                android:textColor="#FFFFFF"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Name of borrower:"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
-
-            <EditText
-                android:id="@+id/editTextBorrowerName"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/rounded_edittext"
-                android:inputType="text"
-                android:hint="Enter Name"
-                android:textColor="@color/black"
-                android:ems="10"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <Button
-                    android:id="@+id/genderButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gender"
-                    android:background="@drawable/button_rounded"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginEnd="8dp"/>
-
-                <TextView
-                    android:id="@+id/showText4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="8dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"
-                    android:hint="Select Gender"
-                    android:clickable="true"
-                    android:focusable="false"/>
-            </LinearLayout>
+                android:gravity="center_vertical"/>
 
             <TextView
                 android:id="@+id/textViewRequestIntro"
@@ -197,7 +134,7 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:hint="Specify"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/black"
                         android:inputType="text"
                         android:background="@drawable/rounded_edittext"
                         android:padding="8dp"
@@ -271,20 +208,20 @@
                 android:id="@+id/buttonAddItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Item"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/button_rounded"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="16dp" />
+                android:text="Add Item"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/buttonSubmit"
-                android:layout_width="match_parent"
+                android:layout_width="169dp"
                 android:layout_height="wrap_content"
-                android:text="Submit Request"
                 android:background="@drawable/button_rounded"
-                android:textColor="#FFFFFF"
                 android:padding="12dp"
-                android:textSize="18sp"/>
+                android:text="Submit Request"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>

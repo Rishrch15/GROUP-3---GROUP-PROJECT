@@ -39,14 +39,6 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <ImageView
-                        android:id="@+id/logoImageView"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginBottom="16dp"
-                        android:contentDescription="E-PERMIT Logo"
-                        android:src="@drawable/logo" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

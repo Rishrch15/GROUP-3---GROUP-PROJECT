@@ -25,13 +25,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                 textName = findViewById(R.id.textName);
                 textEmail = findViewById(R.id.textEmail);
-                textGender = findViewById(R.id.textGender);
 
                 // Example hardcoded data (you can load this from SharedPreferences or DB)
                 // It's good practice to load real user data here, not hardcode.
                 textName.setText("Irish Rocha");
                 textEmail.setText("irish@gmail.com");
-                textGender.setText("Female");
 
                 bottomNavigationView = findViewById(R.id.bottom_navigation);
 

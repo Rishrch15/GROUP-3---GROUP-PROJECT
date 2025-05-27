@@ -35,14 +35,13 @@ public class TransferFormActivity extends AppCompatActivity {
 
     // Declare UI elements
     private TextView textViewDateToday; // Renamed for clarity: this is the TextView showing the selected date
-    private EditText editTextDepartment, editTextBorrowerName, editTextOthersSpecify;
-    private TextView textViewGender; // Renamed for clarity: this is the TextView showing the selected gender
+    private EditText editTextOthersSpecify;
 
     private CheckBox checkBoxTransfer, checkBoxPullOut, checkBoxOfficeTables;
     private CheckBox checkBoxFilingCabinets, checkBoxOthers;
 
     private LinearLayout itemsContainer; // For dynamically added item rows
-    private Button buttonSubmit, buttonDateToday, buttonGender, buttonAddItem; // Renamed for clarity
+    private Button buttonSubmit, buttonDateToday, buttonAddItem; // Renamed for clarity
     private LayoutInflater inflater;
 
     // Assuming you have a class named BorrowRequest and an inner class Item
@@ -64,9 +63,7 @@ public class TransferFormActivity extends AppCompatActivity {
 
         // --- Initialize UI Elements ---
         textViewDateToday = findViewById(R.id.showText); // TextView for Date Today (using showText as per your XML)
-        editTextDepartment = findViewById(R.id.editTextDepartment); // EditText for Department
-        editTextBorrowerName = findViewById(R.id.editTextBorrowerName); // EditText for Borrower Name
-        textViewGender = findViewById(R.id.showText4); // TextView for Gender (using showText4 as per your XML)
+
 
         checkBoxTransfer = findViewById(R.id.checkBoxTransfer);
         checkBoxPullOut = findViewById(R.id.checkBoxPullOut);
@@ -80,41 +77,28 @@ public class TransferFormActivity extends AppCompatActivity {
         buttonAddItem = findViewById(R.id.buttonAddItem); // Initialize the Add Item button
 
         buttonDateToday = findViewById(R.id.dateButton); // Button to open Date Today picker
-        buttonGender = findViewById(R.id.genderButton); // Button to open Gender picker
 
         inflater = LayoutInflater.from(this); // Initialize LayoutInflater
 
-        // Set today's date and default gender on creation if not loading existing data
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         textViewDateToday.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day));
-        textViewGender.setText("Male"); // Default gender
 
         // --- Set up Click Listeners ---
         buttonDateToday.setOnClickListener(v -> openDatePicker(textViewDateToday));
         // Allow clicking the TextView itself to open the picker
         textViewDateToday.setOnClickListener(v -> openDatePicker(textViewDateToday));
 
-        buttonGender.setOnClickListener(v -> openGenderPicker(textViewGender)); // Pass the correct TextView
-        // Allow clicking the TextView itself to open the picker
-        textViewGender.setOnClickListener(v -> openGenderPicker(textViewGender));
 
-        // This button now opens the dialog to add an item
         buttonAddItem.setOnClickListener(v -> showAddItemDialog());
 
-        // --- Load existing data or set up initial state ---
-        // This part needs adjustment if you want to load a specific request for editing.
-        // For simply submitting new requests, you might not need to load a 'request' via intent.
-        // However, if you intend to reuse this form to *edit* a request, this logic is useful.
-        loadRequestFromIntent(); // Renamed and adjusted
-        setupListeners(); // Setup other listeners like submit and checkbox
+        loadRequestFromIntent();
+        setupListeners();
 
-        // --- Bottom Navigation Setup (Moved to onCreate) ---
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        // Using R.id.nav_dashboard as an example, ensure this ID exists in your bottom_navigation_menu.xml
-        // This should reflect the current activity or be set to a default.
+
         bottomNavigationView.setSelectedItemId(R.id.nav_dashboard); // Select current page's icon
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -144,23 +128,17 @@ public class TransferFormActivity extends AppCompatActivity {
         request = (BorrowRequest) getIntent().getSerializableExtra("request_to_edit");
 
         if (request == null) {
-            // If no request is passed via intent, initialize with current date and default gender
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             textViewDateToday.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day));
-            textViewGender.setText("Male");
             editTextOthersSpecify.setVisibility(checkBoxOthers.isChecked() ? View.VISIBLE : View.GONE);
             return;
         }
 
         // If a request object exists, populate the form fields with its data
         textViewDateToday.setText(request.date1);
-        editTextDepartment.setText(request.department);
-        editTextBorrowerName.setText(request.borrowerName);
-        textViewGender.setText(request.gender);
-
         checkBoxTransfer.setChecked(request.isTransfer);
         checkBoxPullOut.setChecked(request.isPullOut);
         checkBoxOfficeTables.setChecked(request.isOfficeTables);
@@ -217,7 +195,7 @@ public class TransferFormActivity extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         dialogDateOfTransfer.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day)); // Consistent format
 
-        dialogDateButton.setOnClickListener(v -> openDatePicker(dialogDateOfTransfer)); // Use consistent openDatePicker
+        dialogDateButton.setOnClickListener(v -> openDatePicker(dialogDateOfTransfer));
         dialogDateOfTransfer.setOnClickListener(v -> openDatePicker(dialogDateOfTransfer)); // Make TextView clickable too
 
         AlertDialog dialog = builder.create();
@@ -293,9 +271,6 @@ public class TransferFormActivity extends AppCompatActivity {
         // Generate a unique ID for the request
         newRequest.requestId = UUID.randomUUID().toString(); // Ensure requestId is in BorrowRequest
         newRequest.date1 = textViewDateToday.getText().toString().trim();
-        newRequest.department = editTextDepartment.getText().toString().trim();
-        newRequest.borrowerName = editTextBorrowerName.getText().toString().trim();
-        newRequest.gender = textViewGender.getText().toString().trim();
 
         newRequest.isTransfer = checkBoxTransfer.isChecked();
         newRequest.isPullOut = checkBoxPullOut.isChecked();
@@ -327,10 +302,7 @@ public class TransferFormActivity extends AppCompatActivity {
     }
 
     private boolean validateForm() {
-        if (textViewDateToday.getText().toString().trim().isEmpty() ||
-                editTextDepartment.getText().toString().trim().isEmpty() ||
-                editTextBorrowerName.getText().toString().trim().isEmpty() ||
-                textViewGender.getText().toString().trim().isEmpty()) {
+        if (textViewDateToday.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, getString(R.string.fill_general_info), Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -350,28 +322,27 @@ public class TransferFormActivity extends AppCompatActivity {
         return true;
     }
 
-    private void openDatePicker(final TextView targetView) {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+    public void openDatePicker(final TextView targetTextView) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
-            String formatted = String.format(Locale.getDefault(), "%d-%02d-%02d", selectedYear, (selectedMonth + 1), selectedDay);
-            targetView.setText(formatted);
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year1, month1, dayOfMonth) -> {
+            targetTextView.setText(String.format(Locale.getDefault(), "%d.%02d.%02d", year1, month1 + 1, dayOfMonth));
         }, year, month, day);
+
+        // Disable past dates
+        dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
+        // Disable dates beyond 1 year from now
+        Calendar maxDate = (Calendar) calendar.clone();
+        maxDate.add(Calendar.YEAR, 1);
+        dialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+
         dialog.show();
     }
 
-    private void openGenderPicker(final TextView targetView) {
-        // Use string array from resources
-        String[] genders = getResources().getStringArray(R.array.genders_array); // Assuming you have genders_array in strings.xml
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.select_gender));
-        builder.setItems(genders, (dialog, which) -> targetView.setText(genders[which]));
-        builder.show();
-    }
 
     private void performLogout() {
         new AlertDialog.Builder(this)
@@ -430,9 +401,6 @@ public class TransferFormActivity extends AppCompatActivity {
     // New method to clear the form fields and reset state
     private void clearForm() {
         textViewDateToday.setText("");
-        editTextDepartment.setText("");
-        editTextBorrowerName.setText("");
-        textViewGender.setText("");
 
         checkBoxTransfer.setChecked(false);
         checkBoxPullOut.setChecked(false);
@@ -451,20 +419,11 @@ public class TransferFormActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         textViewDateToday.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, day));
-        textViewGender.setText("Male");
     }
 
-    // --- Helper classes (You need to define these if they don't exist) ---
-    // Make sure these classes are either in their own files or as static nested classes
-    // if you want to keep them in this file.
-
-    // Example BorrowRequest class to hold form data
     public static class BorrowRequest implements java.io.Serializable {
         public String requestId; // Unique ID for each request
         public String date1;
-        public String department;
-        public String borrowerName;
-        public String gender;
         public boolean isTransfer;
         public boolean isPullOut;
         public boolean isOfficeTables;

@@ -21,16 +21,16 @@ import java.util.Map;
 
 public class ApproveActivity extends AppCompatActivity { // Using your class name
 
-    private static final String TAG = "ApproveActivity";
-    private static final String BASE_URL = "http://192.168.254.149/Epermit/update_request_status.php"; // Your WampServer IP
+    public static final String TAG = "ApproveActivity";
+    public static final String BASE_URL = "http://192.168.0.105/EPermit/update_request_status.php"; // Your WampServer IP
 
-    private TextView tvDateSubmitted, tvDepartment, tvBorrowerName, tvGender, tvProjectName,
+    public TextView tvDateSubmitted, tvDepartment, tvBorrowerName, tvGender, tvProjectName,
             tvDateOfProject, tvTimeOfProject, tvVenue, tvStatus, tvApprovedBy;
-    private LinearLayout itemsDetailContainer;
-    private Button btnApprove, btnReject;
+    public LinearLayout itemsDetailContainer;
+    public Button btnApprove, btnReject;
 
-    private RequestQueue requestQueue;
-    private int currentRequestId = -1; // Store the request ID
+    public RequestQueue requestQueue;
+    public int currentRequestId = -1; // Store the request ID
 
     // For demo purposes, hardcode an admin name. In a real app, this comes from admin login.
     private String adminName = "Admin User 1";
@@ -71,7 +71,7 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
         btnReject.setOnClickListener(v -> updateRequestStatus("Rejected"));
     }
 
-    private void loadRequestDetails(int requestId) {
+    public void loadRequestDetails(int requestId) {
         String url = BASE_URL + "get_request_details.php?request_id=" + requestId;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -119,7 +119,7 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void displayRequestDetails(BorrowRequest request) {
+    public void displayRequestDetails(BorrowRequest request) {
         // FIX: Using getter methods for all BorrowRequest fields
         tvDateSubmitted.setText("Date Submitted: " + request.getDateSubmitted());
         tvDepartment.setText("Department: " + request.getDepartment());
@@ -160,7 +160,7 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
         }
     }
 
-    private void addItemDetailRow(BorrowRequest.Item item) {
+    public void addItemDetailRow(BorrowRequest.Item item) {
         LayoutInflater inflater = LayoutInflater.from(this);
         View itemRow = inflater.inflate(R.layout.item_detail_row, itemsDetailContainer, false); // Using item_detail_row
 
@@ -181,7 +181,7 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
         itemsDetailContainer.addView(itemRow);
     }
 
-    private void updateRequestStatus(String status) {
+    public void updateRequestStatus(String status) {
         String url = BASE_URL + "update_request_status.php";
 
         Map<String, String> params = new HashMap<>();
