@@ -325,6 +325,8 @@ public class BorrowActivity extends AppCompatActivity {
             targetTextView.setText(String.format(Locale.getDefault(), "%d.%02d.%02d", year1, month1 + 1, dayOfMonth));
         }, year, month, day);
 
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+
         dialog.show();
     }
 
