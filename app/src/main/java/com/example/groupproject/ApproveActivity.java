@@ -8,41 +8,46 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApproveActivity extends AppCompatActivity { // Using your class name
+public class ApproveActivity extends AppCompatActivity {
 
     public static final String TAG = "ApproveActivity";
-    public static final String BASE_URL = "http://192.168.100.160/EPermit/update_request_status.php"; // Your WampServer IP
 
-    public TextView tvDateSubmitted, tvDepartment, tvBorrowerName, tvGender, tvProjectName,
-            tvDateOfProject, tvTimeOfProject, tvVenue, tvStatus, tvApprovedBy;
+    public static final String UPDATE_STATUS_URL = "http://192.168.100.160/Epermit/update_request_status.php";
+    public static final String GET_DETAILS_URL_BASE = "http://192.168.100.160/Epermit/get_request_details.php";
+
+    public TextView tvDateSubmitted, tvDepartment, tvBorrowerName, tvGender, tvProjectName, tvDateOfProject, tvTimeOfProject, tvVenue, tvStatus, tvApprovedBy;
     public LinearLayout itemsDetailContainer;
     public Button btnApprove, btnReject;
-
     public RequestQueue requestQueue;
-    public int currentRequestId = -1; // Store the request ID
-
-    // For demo purposes, hardcode an admin name. In a real app, this comes from admin login.
-    private String adminName = "Admin User 1";
+    public int currentRequestId = -1;
+    private String adminName = "Admin User 1"; // Set your admin name here
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_approve_form); // Assuming this is your XML for approval form
+        setContentView(R.layout.activity_approve_form);
 
         requestQueue = Volley.newRequestQueue(this);
-
-        // Initialize TextViews
         tvDateSubmitted = findViewById(R.id.detailDateSubmitted);
         tvDepartment = findViewById(R.id.detailDepartment);
         tvBorrowerName = findViewById(R.id.detailBorrowerName);
@@ -53,17 +58,18 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
         tvVenue = findViewById(R.id.detailVenue);
         tvStatus = findViewById(R.id.detailStatus);
         tvApprovedBy = findViewById(R.id.detailApprovedBy);
-
         itemsDetailContainer = findViewById(R.id.detailItemsContainer);
         btnApprove = findViewById(R.id.btnApprove);
         btnReject = findViewById(R.id.btnReject);
 
         currentRequestId = getIntent().getIntExtra("request_id", -1);
+        Log.d(TAG, "Received Request ID: " + currentRequestId);
 
         if (currentRequestId != -1) {
             loadRequestDetails(currentRequestId);
         } else {
-            Toast.makeText(this, "Request ID not found for approval.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Request ID not found for approval. Cannot load details.", Toast.LENGTH_LONG).show();
+            Log.e(TAG, "Request ID was -1 from intent.");
             finish();
         }
 
@@ -72,13 +78,15 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
     }
 
     public void loadRequestDetails(int requestId) {
-        String url = BASE_URL + "get_request_details.php?request_id=" + requestId;
+        String url = GET_DETAILS_URL_BASE + "?request_id=" + requestId;
+        Log.d(TAG, "Loading request details from URL: " + url);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
                         boolean success = response.getBoolean("success");
                         String message = response.getString("message");
+                        Log.d(TAG, "Load Details Response: " + response.toString());
 
                         if (success) {
                             JSONObject requestJson = response.getJSONObject("request");
@@ -86,8 +94,8 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
                             BorrowRequest request = gson.fromJson(requestJson.toString(), BorrowRequest.class);
 
                             displayRequestDetails(request);
-                            // Only show buttons if status is Pending
-                            if ("Pending".equals(request.getStatus())) { // Using getter
+
+                            if ("Pending".equalsIgnoreCase(request.getStatus())) {
                                 btnApprove.setVisibility(View.VISIBLE);
                                 btnReject.setVisibility(View.VISIBLE);
                             } else {
@@ -96,23 +104,18 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
                             }
 
                         } else {
-                            Toast.makeText(ApproveActivity.this, "Error: " + message, Toast.LENGTH_LONG).show();
-                            Log.e(TAG, "PHP reported error: " + message);
+                            Toast.makeText(ApproveActivity.this, "Error loading details: " + message, Toast.LENGTH_LONG).show();
+                            Log.e(TAG, "PHP error loading details: " + message);
                             finish();
                         }
                     } catch (JSONException e) {
-                        Log.e(TAG, "JSON parsing error in response", e);
-                        Toast.makeText(ApproveActivity.this, "Error parsing server response.", Toast.LENGTH_LONG).show();
+                        Log.e(TAG, "JSON parsing error for details response", e);
+                        Toast.makeText(ApproveActivity.this, "Error parsing server response for details.", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 },
                 error -> {
-                    Log.e(TAG, "Volley error: " + error.toString());
-                    if (error.networkResponse != null) {
-                        Log.e(TAG, "Status Code: " + error.networkResponse.statusCode);
-                        Log.e(TAG, "Response Data: " + new String(error.networkResponse.data));
-                    }
-                    Toast.makeText(ApproveActivity.this, "Network error. Could not load details.", Toast.LENGTH_LONG).show();
+                    handleVolleyError(error, "loading details");
                     finish();
                 });
 
@@ -120,7 +123,6 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
     }
 
     public void displayRequestDetails(BorrowRequest request) {
-        // FIX: Using getter methods for all BorrowRequest fields
         tvDateSubmitted.setText("Date Submitted: " + request.getDateSubmitted());
         tvDepartment.setText("Department: " + request.getDepartment());
         tvBorrowerName.setText("Borrower Name: " + request.getBorrowerName());
@@ -131,7 +133,7 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
         tvVenue.setText("Venue: " + request.getVenue());
         tvStatus.setText("Status: " + request.getStatus());
 
-        if (request.getApprovedBy() != null && !request.getApprovedBy().isEmpty()) { // Using getter
+        if (request.getApprovedBy() != null && !request.getApprovedBy().isEmpty()) {
             tvApprovedBy.setText("Approved By: " + request.getApprovedBy());
             tvApprovedBy.setVisibility(View.VISIBLE);
         } else {
@@ -139,8 +141,8 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
         }
 
         itemsDetailContainer.removeAllViews();
-        if (request.getItems() != null && !request.getItems().isEmpty()) { // Using getter
-            for (BorrowRequest.Item item : request.getItems()) { // Using getter
+        if (request.getItems() != null && !request.getItems().isEmpty()) {
+            for (BorrowRequest.Item item : request.getItems()) {
                 addItemDetailRow(item);
             }
         } else {
@@ -150,10 +152,9 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
             itemsDetailContainer.addView(noItemsText);
         }
 
-        // Set status color
-        if ("Approved".equals(request.getStatus())) {
+        if ("Approved".equalsIgnoreCase(request.getStatus())) {
             tvStatus.setTextColor(getResources().getColor(R.color.green));
-        } else if ("Rejected".equals(request.getStatus())) {
+        } else if ("Rejected".equalsIgnoreCase(request.getStatus())) {
             tvStatus.setTextColor(getResources().getColor(R.color.red));
         } else { // Pending
             tvStatus.setTextColor(getResources().getColor(R.color.orange));
@@ -162,16 +163,14 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
 
     public void addItemDetailRow(BorrowRequest.Item item) {
         LayoutInflater inflater = LayoutInflater.from(this);
-        View itemRow = inflater.inflate(R.layout.item_detail_row, itemsDetailContainer, false); // Using item_detail_row
+        View itemRow = inflater.inflate(R.layout.item_detail_row, itemsDetailContainer, false);
 
-        // Accessing Item fields directly as they are public in the Item inner class
         TextView detailQty = itemRow.findViewById(R.id.detailTextViewQty);
         TextView detailDescription = itemRow.findViewById(R.id.detailTextViewDescription);
         TextView detailDateOfTransfer = itemRow.findViewById(R.id.detailTextViewDateOfTransfer);
         TextView detailLocationFrom = itemRow.findViewById(R.id.detailTextViewLocationFrom);
         TextView detailLocationTo = itemRow.findViewById(R.id.detailTextViewLocationTo);
 
-        // FIX: Using getters for Item fields as well, good practice even if they are public
         detailQty.setText("Quantity: " + item.getQty());
         detailDescription.setText("Description: " + item.getDescription());
         detailDateOfTransfer.setText("Date of Transfer: " + item.getDateOfTransfer());
@@ -182,40 +181,100 @@ public class ApproveActivity extends AppCompatActivity { // Using your class nam
     }
 
     public void updateRequestStatus(String status) {
-        String url = BASE_URL + "update_request_status.php";
+        Log.d(TAG, "Updating request status for ID: " + currentRequestId);
+        Log.d(TAG, "New Status: " + status);
+        Log.d(TAG, "Approved By: " + adminName);
 
-        Map<String, String> params = new HashMap<>();
-        params.put("request_id", String.valueOf(currentRequestId));
-        params.put("status", status);
-        params.put("approved_by", adminName); // The name of the admin who approved/rejected
+        if (currentRequestId == -1 || adminName == null || adminName.isEmpty() || status == null || status.isEmpty()) {
+            Toast.makeText(this, "Invalid update parameters.", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-        JSONObject jsonParams = new JSONObject(params);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonParams,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPDATE_STATUS_URL,
                 response -> {
                     try {
-                        boolean success = response.getBoolean("success");
-                        String message = response.getString("message");
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+                        String message = jsonResponse.getString("message");
                         Toast.makeText(ApproveActivity.this, message, Toast.LENGTH_SHORT).show();
-
-                        if (success) {
-                            // After update, navigate back to the admin's To Approve List
-                            finish(); // Close this activity
-                        }
+                        if (success) finish();
                     } catch (JSONException e) {
-                        Log.e(TAG, "JSON parsing error in response", e);
-                        Toast.makeText(ApproveActivity.this, "Error parsing server response.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ApproveActivity.this, "Invalid response from server", Toast.LENGTH_LONG).show();
                     }
                 },
-                error -> {
-                    Log.e(TAG, "Volley error updating status: " + error.toString());
-                    if (error.networkResponse != null) {
-                        Log.e(TAG, "Status Code: " + error.networkResponse.statusCode);
-                        Log.e(TAG, "Response Data: " + new String(error.networkResponse.data));
-                    }
-                    Toast.makeText(ApproveActivity.this, "Network error updating status: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                });
+                error -> handleVolleyError(error, "updating status")) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("request_id", String.valueOf(currentRequestId));
+                params.put("status", status);
+                params.put("approved_by", adminName);
+                return params;
+            }
 
-        requestQueue.add(jsonObjectRequest);
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                return headers;
+            }
+        };
+
+        requestQueue.add(stringRequest);
+    }
+
+    public void handleVolleyError(VolleyError error, String action) {
+        String message = "Unknown error while " + action + ".";
+        if (error.networkResponse != null && error.networkResponse.data != null) {
+            String body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+            Log.e(TAG, "Volley " + action + " error: " + body);
+            message = "Server error: " + body;
+        } else if (error.getMessage() != null) {
+            message = error.getMessage();
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    // BorrowRequest and nested Item class
+    public static class BorrowRequest {
+        private int requestId;
+        private String dateSubmitted;
+        private String department;
+        private String borrowerName;
+        private String gender;
+        private String projectName;
+        private String dateOfProject;
+        private String timeOfProject;
+        private String venue;
+        private String status;
+        private String approvedBy;
+        private java.util.List<Item> items;
+
+        public int getRequestId() { return requestId; }
+        public String getDateSubmitted() { return dateSubmitted; }
+        public String getDepartment() { return department; }
+        public String getBorrowerName() { return borrowerName; }
+        public String getGender() { return gender; }
+        public String getProjectName() { return projectName; }
+        public String getDateOfProject() { return dateOfProject; }
+        public String getTimeOfProject() { return timeOfProject; }
+        public String getVenue() { return venue; }
+        public String getStatus() { return status; }
+        public String getApprovedBy() { return approvedBy; }
+        public java.util.List<Item> getItems() { return items; }
+
+        public static class Item {
+            private int qty;
+            private String description;
+            private String dateOfTransfer;
+            private String locationFrom;
+            private String locationTo;
+
+            public int getQty() { return qty; }
+            public String getDescription() { return description; }
+            public String getDateOfTransfer() { return dateOfTransfer; }
+            public String getLocationFrom() { return locationFrom; }
+            public String getLocationTo() { return locationTo; }
+        }
     }
 }
