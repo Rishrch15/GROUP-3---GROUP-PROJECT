@@ -22,7 +22,7 @@ import java.util.Map;
 public class ApproveActivity extends AppCompatActivity { // Using your class name
 
     public static final String TAG = "ApproveActivity";
-    public static final String BASE_URL = "http://192.168.0.105/EPermit/update_request_status.php"; // Your WampServer IP
+    public static final String BASE_URL = "http://192.168.100.160/EPermit/update_request_status.php"; // Your WampServer IP
 
     public TextView tvDateSubmitted, tvDepartment, tvBorrowerName, tvGender, tvProjectName,
             tvDateOfProject, tvTimeOfProject, tvVenue, tvStatus, tvApprovedBy;

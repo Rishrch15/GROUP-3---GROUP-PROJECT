@@ -33,7 +33,7 @@ public class Register extends AppCompatActivity {
     private TextView tvLoginLink; // Declare TextView for the login link
     private String selectedGender = "";
 
-    private static final String URL = "http://192.168.0.105/EPermit/register.php";
+    private static final String URL = "http://192.168.100.160/EPermit/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

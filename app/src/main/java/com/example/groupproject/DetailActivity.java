@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class DetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailActivity";
-    private static final String BASE_URL = "http://192.168.0.105/EPermit/get_request_details.php";
+    private static final String BASE_URL = "http://192.168.100.160/EPermit/get_request_details.php";
     private TextView tvDateSubmitted, tvDepartment, tvBorrowerName, tvGender, tvProjectName,
             tvDateOfProject, tvTimeOfProject, tvVenue, tvStatus, tvApprovedBy;
     private LinearLayout itemsDetailContainer;

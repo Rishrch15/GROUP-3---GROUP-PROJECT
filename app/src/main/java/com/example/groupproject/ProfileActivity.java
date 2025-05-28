@@ -57,7 +57,6 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                 });
         }
-
         private void performLogout() {
                 new AlertDialog.Builder(this)
                         .setTitle("Confirm Logout")

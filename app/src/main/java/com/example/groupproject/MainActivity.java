@@ -18,13 +18,12 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
-    private static final String URL = "http://192.168.0.105/EPermit/login.php";
+    private static final String URL = "http://192.168.100.160/EPermit/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
     }
@@ -44,9 +43,18 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, obj.getString("message"), Toast.LENGTH_SHORT).show();
 
                 if (obj.getBoolean("success")) {
-                    Intent intent = new Intent(MainActivity.this, Success.class); // or AdminDashboardActivity if role-based
-                    startActivity(intent);
-                    finish();
+                    // Get the role from response JSON
+                    String role = obj.getJSONObject("user").getString("role");
+
+                    if (role.equalsIgnoreCase("Admin")) {
+                        Intent intent = new Intent(MainActivity.this, AdminDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, Success.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
 
             } catch (JSONException e) {

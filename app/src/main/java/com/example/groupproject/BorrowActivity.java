@@ -39,7 +39,7 @@ public class BorrowActivity extends AppCompatActivity {
 
     private static final String TAG = "BorrowActivity";
 
-    private static final String BASE_URL = "http://192.168.185.219/EPermit/";
+    private static final String BASE_URL = "http://192.168.100.160/EPermit/";
 
     TextView textDate, textDate2, text3, text4;
     EditText editProject, editVenue;

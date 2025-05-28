@@ -26,7 +26,7 @@ import java.util.List;
 
 public class AdminApprovedListActivity extends AppCompatActivity {
     private static final String TAG = "AdminApprovedList";
-    private static final String BASE_URL = "http://192.168.0.105/EPermit/get_requests.php";
+    private static final String BASE_URL = "http://192.168.100.160/EPermit/get_requests.php";
     private LinearLayout requestsContainer;
     private TextView noRequestsText;
     private RequestQueue requestQueue;
